@@ -1,3 +1,4 @@
+
 @section('content')
 <div class="row mt-5">
     <div class="col-12">
@@ -31,29 +32,6 @@
                                     <p class="card-text"><strong>Deskripsi:</strong> {{ $book->deskripsi }}</p>
 
                                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                        <button class="btn btn-warning btn-sm edit-button"
-                                            data-id="{{ $book->id }}"
-                                            data-judul="{{ $book->judul }}"
-                                            data-penulis="{{ $book->penulis }}"
-                                            data-penerbit="{{ $book->penerbit }}"
-                                            data-katagori="{{ $book->katagori }}"
-                                            data-tahun="{{ $book->tahun }}"
-                                            data-jumlah="{{ $book->jumlah }}"
-                                            data-deskripsi="{{ $book->deskripsi }}"
-                                            data-image_url="{{ $book->image_url }}"
-                                            data-pdf_url="{{ $book->pdf_url }}"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#editBukuModal">
-                                            Edit
-                                        </button>
-
-                                        <form action="{{ route('admin.databuku.destroy', $book->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus buku ini?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm">
-                                                <i class="ti ti-trash"></i> Hapus
-                                            </button>
-                                        </form>
                                         <a href="{{ $book->pdf_url }}" class="btn btn-info btn-sm" target="_blank">
                                             <i class="ti ti-file"></i> Lihat PDF
                                         </a>
@@ -67,19 +45,17 @@
         </div>
     </div>
 
-    <!-- Modal Edit Buku -->
-    <div class="modal fade" id="editBukuModal" tabindex="-1" aria-labelledby="editBukuModalLabel" aria-hidden="true">
+    <!-- Modal Tambah Buku -->
+    <div class="modal fade" id="tambahBukuModal" tabindex="-1" aria-labelledby="tambahBukuModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form id="editForm" action="{{ route('admin.databuku.update', $book->id) }}" method="POST">
+                <form action="{{ route('petugas.databuku.store') }}" method="POST">
                     @csrf
-                    @method('PUT')
                     <div class="modal-header">
-                        <h5 class="modal-title" id="editBukuModalLabel">Edit Buku</h5>
+                        <h5 class="modal-title" id="tambahBukuModalLabel">Tambah Buku</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <!-- Form Input -->
                         <div class="mb-3">
                             <label for="judul" class="form-label">Judul Buku</label>
                             <input type="text" name="judul" class="form-control" id="judul" required>
@@ -119,32 +95,12 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-primary">Perbarui</button>
+                        <button type="submit" class="btn btn-primary">Tambah</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+
 </div>
-
-<script>
-    // Populate the modal with data from the clicked book
-    document.querySelectorAll('.edit-button').forEach(button => {
-        button.addEventListener('click', function() {
-            const form = document.getElementById('editForm');
-            const bookId = this.getAttribute('data-id');
-            form.action = `/admin/databuku/${bookId}`;
-
-            document.getElementById('judul').value = this.getAttribute('data-judul');
-            document.getElementById('penulis').value = this.getAttribute('data-penulis');
-            document.getElementById('penerbit').value = this.getAttribute('data-penerbit');
-            document.getElementById('katagori').value = this.getAttribute('data-katagori');
-            document.getElementById('tahun').value = this.getAttribute('data-tahun');
-            document.getElementById('jumlah').value = this.getAttribute('data-jumlah');
-            document.getElementById('deskripsi').value = this.getAttribute('data-deskripsi');
-            document.getElementById('image_url').value = this.getAttribute('data-image_url');
-            document.getElementById('pdf_url').value = this.getAttribute('data-pdf_url');
-        });
-    });
-</script>
 @endsection

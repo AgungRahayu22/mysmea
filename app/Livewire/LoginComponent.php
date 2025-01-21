@@ -27,9 +27,9 @@ class LoginComponent extends Component
         if ($user->jenis === 'admin') {
             return redirect()->route('admin.dashboard');
         } elseif ($user->jenis === 'petugas') {
-            return redirect()->route('petugas.dashboard');
+            return redirect()->route('petugas.dabuk');
         } else {
-            return redirect()->route('user.dashboard'); // Pastikan rute ini sesuai
+            return redirect()->route('user.pinjam'); // Pastikan rute ini sesuai
         }
     } else {
         // Jika login gagal

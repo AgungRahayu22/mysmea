@@ -3,17 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
+use App\Models\Book;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $totalUsers = User::count(); // Menghitung jumlah pengguna
-        $totalBooks = 350; // Contoh data total buku
-        $totalBorrowers = 75; // Contoh data total peminjam
+        // Hitung total pengguna
+        $totalPengguna = User::count();
 
-        // Mengirimkan data ke view
-        return view('dashboard', compact('totalUsers', 'totalBooks', 'totalBorrowers'));
+        $totalBuku = Book::count();
+
+        // Kirim data ke view
+        return view('admin.dashboard', compact('totalPengguna', 'totalBuku'));
+    }
+    public function kelola()
+    {
+         $users = User::all();
+
+          return view('admin.kelola', compact('users'));
     }
 }

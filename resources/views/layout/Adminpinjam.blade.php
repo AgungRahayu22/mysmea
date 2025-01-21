@@ -5,8 +5,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Modernize Free</title>
-  <link rel="shortcut icon" type="image/png" href="../assetss/images/logos/favicon.png" />
   <link rel="stylesheet" href="../assetss/css/styles.min.css" />
+  <link rel="shortcut icon" type="image/png" href="../assets/img/logomy.png" />
 </head>
 
 <body>
@@ -15,6 +15,7 @@
     data-sidebar-position="fixed" data-header-position="fixed">
     <!-- Sidebar Start -->
         @include('layout.sidebarAdmin')
+        @include('layout.navbar')
     <!--  Sidebar End -->
         <div class="body-wrapper">
             <div class="container mt-5">

@@ -3,7 +3,7 @@
     <div class="col-12">
         <div class="card w-100 ">
             <div class="card-body">
-                <h1 class="fw-bold text-primary">Selamat Datang di Dashboard!</h1>
+                <h1 class="fw-bold text-primary">Selamat Datang {{ Auth::user()->nama }}!</h1>
                 <p class="text-muted fs-4 mt-3">
                     Selamat datang, Admin! Kelola data pengguna, buku, dan peminjaman dengan mudah di sini.
                 </p>
@@ -23,7 +23,7 @@
                         <i class="ti ti-user fs-8"></i>
                     </div>
                     <h5 class="mt-3 fw-semibold">Total Pengguna</h5>
-                    <h2 class="fw-bold">120</h2>
+                    <h2 class="fw-bold">{{ $totalPengguna }}</h2>
                 </div>
             </div>
         </div>
@@ -38,7 +38,7 @@
                         <i class="ti ti-book fs-8"></i>
                     </div>
                     <h5 class="mt-3 fw-semibold">Total Buku</h5>
-                    <h2 class="fw-bold">350</h2>
+                    <h2 class="fw-bold">{{ $totalBuku  }}</h2>
                 </div>
             </div>
         </div>

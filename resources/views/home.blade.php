@@ -131,94 +131,62 @@
     </section><!-- /About Section -->
 
     <section id="team" class="team section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Book</h2>
-        <p>Mari mulai petualangan membaca Anda di MySmeaBooks, tempat penuh pengetahuan yang siap untuk dijelajahi!</p>
-      </div><!-- End Section Title -->
-
-      <div class="container">
-
-        <div class="row gy-4">
-
-          <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="member">
-              <img src="https://4.bp.blogspot.com/-dc4-vnkpvDg/Vj5wcqVMOGI/AAAAAAAAAPk/FuH-zjU3pR8/s1600/covernya.jpg" class="img-fluid book-image" alt="">
-              <div class="member-info">
-                <div class="member-info-content">
-                  <h4>Walter White</h4>
-                  <span>Chief Executive Officer</span>
-                </div>
-                <div class="social">
-                  <a href=""><i class="bi bi-book"></i></a>
-                  <a href=""><i class="bi bi-info"></i></a>
-                  <a href=""><i class="bi bi-list"></i></a>
-                  <a href=""><i class="bi bi-stars"></i></a>
-                </div>
-              </div>
-            </div>
-          </div><!-- End Team Member -->
-
-          <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="member">
-              <img src="https://1.bp.blogspot.com/-G93LdoNEm5s/XYR_bqF76VI/AAAAAAAAABY/7tlrxoxoKWgXEr6sYWvWToJjmW7QDi7rgCLcBGAsYHQ/s1600/NOVEL%2BMARIPOSA.jpg" class="img-fluid book-image" alt="">
-              <div class="member-info">
-                <div class="member-info-content">
-                  <h4>Sarah Jhonson</h4>
-                  <span>Product Manager</span>
-                </div>
-                <div class="social">
-                  <a href=""><i class="bi bi-book"></i></a>
-                  <a href=""><i class="bi bi-info"></i></a>
-                  <a href=""><i class="bi bi-list"></i></a>
-                  <a href=""><i class="bi bi-stars"></i></a>
-                </div>
-              </div>
-            </div>
-          </div><!-- End Team Member -->
-
-          <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-            <div class="member">
-              <img src="https://selasar.com/wp-content/uploads/2020/03/cover-buku-design.jpg" class="img-fluid book-image" alt="">
-              <div class="member-info">
-                <div class="member-info-content">
-                  <h4>William Anderson</h4>
-                  <span>CTO</span>
-                </div>
-                <div class="social">
-                  <a href=""><i class="bi bi-book"></i></a>
-                  <a href=""><i class="bi bi-info"></i></a>
-                  <a href=""><i class="bi bi-list"></i></a>
-                  <a href=""><i class="bi bi-stars"></i></a>
-                </div>
-              </div>
-            </div>
-          </div><!-- End Team Member -->
-
-          <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
-            <div class="member">
-              <img src="https://penerbitdeepublish.com/wp-content/uploads/2020/11/Menanti-Restu-Langit_Makhasin_Rev-1.0-depan-717x1024.jpg" class="img-fluid book-image" alt="">
-              <div class="member-info">
-                <div class="member-info-content">
-                  <h4>Amanda Jepson</h4>
-                  <span>Accountant</span>
-                </div>
-                <div class="social">
-                  <a href=""><i class="bi bi-book"></i></a>
-                  <a href=""><i class="bi bi-info"></i></a>
-                  <a href=""><i class="bi bi-list"></i></a>
-                  <a href=""><i class="bi bi-stars"></i></a>
-                </div>
-              </div>
-            </div>
-          </div><!-- End Team Member -->
-
+        <div class="container section-title" data-aos="fade-up">
+            <h2>Book</h2>
+            <p>Mari mulai petualangan membaca Anda di MySmeaBooks, tempat penuh pengetahuan yang siap untuk dijelajahi!</p>
         </div>
 
-      </div>
+        <div class="container">
+            <div class="row gy-4">
+                @foreach ($books as $book)
+                    <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                        <div class="member">
+                            <img src="{{ $book->image_url }}" class="img-fluid book-image" alt="{{ $book->judul }}">
+                            <div class="member-info">
+                                <div class="member-info-content">
+                                    <h4>{{ $book->judul }}</h4>
+                                    <span>{{ $book->penulis }}</span>
+                                </div>
+                                    <div class="social">
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#bookDetailModal{{ $book->id }}">
+                                            <i class="bi bi-info"></i>
+                                        </a>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal untuk setiap buku -->
+                    <div class="modal fade" id="bookDetailModal{{ $book->id }}" tabindex="-1" aria-labelledby="bookDetailModalLabel{{ $book->id }}" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="bookDetailModalLabel{{ $book->id }}">{{ $book->judul }}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <img src="{{ $book->image_url }}" class="img-fluid" alt="{{ $book->judul }}">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p><strong>Penulis:</strong> {{ $book->penulis }}</p>
+                                            <p><strong>Penerbit:</strong> {{ $book->penerbit }}</p>
+                                            <p><strong>Kategori:</strong> {{ $book->katagori }}</p>
+                                            <p><strong>Tahun Terbit:</strong> {{ $book->tahun }}</p>
+                                            <p><strong>Deskripsi:</strong> {{ $book->deskripsi }}</p>
+                                            <a href="{{ $book->pdf_url }}" target="_blank" class="btn btn-primary">Baca Buku</a>
+                                            <a href="{{ route('user.pinjam', $book->id) }}" class="btn btn-success">Pinjam Buku</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
 
-    </section><!-- /Team Section -->
 
     <!-- Services Section -->
     <section id="services" class="services section light-background">

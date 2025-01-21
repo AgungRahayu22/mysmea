@@ -14,13 +14,12 @@
   <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
     data-sidebar-position="fixed" data-header-position="fixed">
     <!-- Sidebar Start -->
-        @include('layout.sidebarAdmin')
+        @include('layout.sidebarPetugas')
         @include('layout.navbar')
     <!--  Sidebar End -->
         <div class="body-wrapper">
             <div class="container mt-5">
-                @include('layout.dabukAdmin')
-                @yield('content')
+                @include('layout.daperPetugas')
             </div>
         </div>
     <!--  Main wrapper -->

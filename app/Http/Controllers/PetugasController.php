@@ -8,6 +8,14 @@ class PetugasController extends Controller
 {
     public function index()
     {
-        return view('petugas.dashboard');
+        return view('petugas.dabuk');
+    }
+        public function daper()
+    {
+        return view('petugas.daper');
+    }
+        public function laporan()
+    {
+        return view('petugas.laporan');
     }
 }

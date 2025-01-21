@@ -7,11 +7,11 @@ use Livewire\Component;
 
 class RegisterComponent extends Component
 {
-    public $name, $email, $password, $password_confirmation, $alamat, $telepon, $jenis;
+    public $nama, $email, $password, $password_confirmation, $alamat, $telepon, $jenis;
 
     // Menambahkan validasi password_confirmation
     protected $rules = [
-        'name' => 'required|string|max:255',
+        'nama' => 'required|string|max:255',
         'email' => 'required|email|unique:users,email',
         'password' => 'required|confirmed|min:4',
         'alamat' => 'required|string|max:255',
@@ -21,12 +21,14 @@ class RegisterComponent extends Component
 
     public function register()
     {
+
+        
         // Melakukan validasi
         $this->validate();
 
         // Membuat user baru dengan data yang sudah tervalidasi
         User::create([
-            'name' => $this->name,
+            'nama' => $this->nama,
             'email' => $this->email,
             'password' => Hash::make($this->password),
             'alamat' => $this->alamat,

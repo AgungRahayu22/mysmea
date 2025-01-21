@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('nama')->nullable();
+            $table->string('nama');
             $table->string('alamat')->nullable();
             $table->string('telepon')->nullable();
             $table->string('email')->unique();
@@ -38,6 +38,9 @@ return new class extends Migration
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
+          Schema::table('users', function (Blueprint $table) {
+                $table->renameColumn('jenis', 'role'); // Ganti kolom 'jenis' menjadi 'role'
+            });
     }
 
     /**

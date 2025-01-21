@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Modernize Free</title>
-  <link rel="shortcut icon" type="image/png" href="../assetss/images/logos/favicon.png" />
+  <link rel="shortcut icon" type="image/png" href="../assets/img/logomy.png" />
   <link rel="stylesheet" href="../assetss/css/styles.min.css" />
 </head>
 
@@ -15,12 +15,16 @@
     data-sidebar-position="fixed" data-header-position="fixed">
     <!-- Sidebar Start -->
         @include('layout.sidebarAdmin')
+        @include('layout.navbar')
     <!--  Sidebar End -->
         <div class="body-wrapper">
             <div class="container mt-5">
                 @include('layout.kelolaAdmin')
+                @yield('content')
             </div>
         </div>
+
+
     <!--  Main wrapper -->
 
   </div>

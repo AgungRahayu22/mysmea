@@ -1,9 +1,9 @@
 <aside class="left-sidebar">
       <!-- Sidebar scroll-->
       <div>
-        <div class="brand-logo d-flex align-items-center justify-content-between">
-          <a href="./index.html" class="text-nowrap logo-img">
-            <img src="../assetss/images/logos/dark-logo.svg" width="180" alt="" />
+        <div class="brand-logo d-flex align-items-center justify-content-center mt-8">
+          <a href="#" class="text-nowrap logo-img">
+            <img src="../assets/img/logomy.png" width="180" alt="" />
           </a>
           <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
             <i class="ti ti-x fs-8"></i>
@@ -35,17 +35,9 @@
             <li class="sidebar-item">
               <a class="sidebar-link" href="{{ route('admin.databuku') }}" aria-expanded="false">
                 <span>
-                  <i class="ti ti-alert-circle"></i>
+                  <i class="ti ti-books"></i>
                 </span>
                 <span class="hide-menu">Pendataan Buku</span>
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="{{ route('admin.penerbit') }}" aria-expanded="false">
-                <span>
-                  <i class="ti ti-cards"></i>
-                </span>
-                <span class="hide-menu">Pendataan Penerbit</span>
               </a>
             </li>
             <li class="sidebar-item">
@@ -59,7 +51,7 @@
             <li class="sidebar-item">
               <a class="sidebar-link" href="{{ route('admin.ulasanbuku') }}" aria-expanded="false">
                 <span>
-                  <i class="ti ti-typography"></i>
+                  <i class="ti ti-star"></i>
                 </span>
                 <span class="hide-menu">Ulasan Buku</span>
               </a>
