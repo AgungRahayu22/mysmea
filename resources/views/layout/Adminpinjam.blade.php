@@ -20,6 +20,7 @@
         <div class="body-wrapper">
             <div class="container mt-5">
                 @include('layout.pinjamAdmin')
+                @yield('content')
             </div>
         </div>
     <!--  Main wrapper -->

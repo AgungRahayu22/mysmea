@@ -1,3 +1,11 @@
+<style>
+    .app-header {
+    position: relative; /* Menghilangkan posisi fixed atau sticky */
+    top: 0; /* Menjaga jarak dari atas */
+    width: 100%;
+}
+
+</style>
 <div class="body-wrapper" style="padding-top: 70px;">
     <header class="app-header">
         <nav class="navbar navbar-expand-lg navbar-light">

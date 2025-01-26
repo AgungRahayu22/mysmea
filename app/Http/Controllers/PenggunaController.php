@@ -15,4 +15,9 @@ class PenggunaController extends Controller
     {
         return view('user.ulasan');
     }
+        public function koleksi()
+    {
+        return view('user.koleksi');
+    }
+
 }

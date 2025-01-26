@@ -16,11 +16,11 @@ class RoleMiddleware
      * @return mixed
      */
     public function handle($request, Closure $next, $role)
-    {
-        if (Auth::check() && Auth::user()->role === $role) {
+        {
+            if (!Auth::check() || Auth::user()->role !== $role) {
+                return redirect('/'); // Arahkan ke halaman home jika tidak memiliki akses
+            }
+
             return $next($request);
         }
-
-        return redirect('/login')->with('error', 'Access Denied! You do not have permission to access this page.');
     }
-}

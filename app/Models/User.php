@@ -39,7 +39,12 @@ class User extends Authenticatable
     }
     public function peminjamanBuku()
     {
-        return $this->hasMany(PeminjamanBuku::class, 'user_id');
+        return $this->hasMany(PeminjamanBuku::class);
     }
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
+    }
+
 
 }

@@ -14,9 +14,9 @@
 
         <!-- Navigation Links -->
         <nav class="nav-links d-flex ms-auto me-5">
-            <a href="#" class="nav-link ms-4">Home</a>
-            <a href="#" class="nav-link ms-4">Favorit</a>
-            <a href="#" class="nav-link ms-4">Ulasan</a>
+            <a href="{{ route ('user.pinjam') }}" class="nav-link ms-4">Home</a>
+            <a href="{{ route('user.koleksi') }}" class="nav-link ms-4">Koleksi</a>
+            <a href="{{ route ('user.ulasan') }}" class="nav-link ms-4">Ulasan</a>
         </nav>
 
         <!-- Profile Dropdown -->

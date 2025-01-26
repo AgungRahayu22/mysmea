@@ -13,7 +13,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\PetugasBukuController;
 use App\Http\Controllers\PeminjamanBukuController;
-
+use App\Models\PeminjamanBuku;
 
 // Tampilan awal (home) tanpa middleware auth
 Route::get('/', function () {
@@ -66,12 +66,27 @@ Route::get('/admin/books', [BookController::class, 'adminIndex'])->name('admin.d
 
 Route::get('/user/pinjam', [PenggunaController::class, 'index'])->name('user.pinjam');
 Route::get('/user/ulasan', [PenggunaController::class, 'ulasan'])->name('user.ulasan');
+Route::get('/user/koleksi', [PenggunaController::class, 'koleksi'])->name('user.koleksi');
 Route::get('/user/pinjam', [BookController::class, 'user'])->name('user.pinjam');  // Untuk tampilan buku
-Route::post('/user/pinjam/{bookId}', [PeminjamanBukuController::class, 'store'])->name('user.pinjam');
+Route::post('/user/pinjam', [PeminjamanBukuController::class, 'store'])->name('user.pinjam');
 
 
 Route::get('/petugas/daper', [PetugasController::class, 'daper'])->name('petugas.daper');
 Route::get('/petugas/laporan', [PetugasController::class, 'laporan'])->name('petugas.laporan');
 
 Route::get('/petugas/dabuk', [BookController::class, 'petugas'])->name('petugas.dabuk');
-Route::post('/petugas/databuku', [PetugasBukuController::class, 'store'])->name('petugas.databuku.store');
+Route::post('/user/pinjam/{bookId?}', [PeminjamanBukuController::class, 'store'])->name('user.pinjam');
+
+Route::get('/admin/peminjamanbuku', [PeminjamanBukuController::class, 'index'])->name('admin.peminjamanbuku');
+Route::post('/store', [PetugasBukuController::class, 'store'])->name('petugas.databuku.store');
+Route::get('/user/pinjam/{id}', [PeminjamanBukuController::class, 'show'])->name('user.pinjam.show');
+Route::get('/koleksi', [PeminjamanBukuController::class, 'koleksi'])->name('user.koleksi');
+Route::delete('/peminjaman/{id}', [PeminjamanBukuController::class, 'destroy'])->name('peminjaman.destroy');
+Route::post('/peminjaman/{id}/return', [PeminjamanBukuController::class, 'return'])->name('peminjaman.return');
+Route::post('/book/rating', [BookController::class, 'storeRating'])->name('book.rating');
+Route::get('/user/ulasan', [PeminjamanBukuController::class, 'Ulasan'])->name('user.ulasan');
+// web.php
+Route::delete('/rating/{id}', [BookController::class, 'destroyRating'])->name('admin.deleteRating');
+Route::get('/admin/ulasanbuku', [BookController::class, 'adminUlasan'])->name('admin.ulasanbuku');
+Route::get('/admin/laporanbuku', [BookController::class, 'laporan'])->name('admin.laporanbuku');
+Route::get('/petugas/laporan', [BookController::class, 'laporanpetugas'])->name('petugas.laporan');

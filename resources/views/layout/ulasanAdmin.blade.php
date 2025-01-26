@@ -19,9 +19,31 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Contoh Data -->
+                            @foreach($ratings as $rating)
                             <tr>
-                                <td>1</td>
-                                <td>Jane Smith</td>
-                                <td>1984</td>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $rating->user->nama }}</td>
+                                <td>{{ $rating->book->judul }}</td>
+                                 <td>
+                                    <!-- Menampilkan Rating dalam format teks -->
+                                    {{ $rating->rating }} / 5
+                                </td>
+                                <td>{{ $rating->review }}</td>
+                                <td>
+                                    <!-- Form untuk Hapus Rating -->
+                                    <form action="{{ route('admin.deleteRating', $rating->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus rating ini?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                                    </form>
+                                </td>
 
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

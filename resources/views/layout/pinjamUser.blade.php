@@ -1,4 +1,7 @@
 @section('content')
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <style>
     .card:hover {
         transform: translateY(-5px);
@@ -83,6 +86,25 @@
 </style>
 
 <div class="container mt-5">
+                                      @if(session('error'))
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Terjadi Kesalahan',
+                    text: "{{ session('error') }}",
+                });
+            </script>
+        @endif
+
+        @if(session('success'))
+            <script>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Sukses',
+                    text: "{{ session('success') }}",
+                });
+            </script>
+        @endif
     <!-- Slider Premium Package -->
     <div id="premiumSlider" class="carousel slide mb-5" data-bs-ride="carousel">
         <div class="carousel-inner">
@@ -93,6 +115,7 @@
                 <img src="../assets/img/undraw_collaborators_rgw4.svg" class="d-block w-100" alt="Premium Package Banner">
             </div>
         </div>
+
         <button class="carousel-control-prev" type="button" data-bs-target="#premiumSlider" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
@@ -140,7 +163,9 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="detailModalLabel"><i class="bi bi-info-circle-fill text-primary"></i> Detail Buku</h5>
+                    <h5 class="modal-title" id="detailModalLabel">
+                        <i class="bi bi-info-circle-fill text-primary"></i> Detail Buku
+                    </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -150,39 +175,67 @@
                         </div>
                         <div class="col-md-9">
                             <h4 id="modalTitle" class="mb-2"></h4>
-                            <p><strong><i class="bi bi-person text-secondary"></i> Penulis:</strong> <span id="modalAuthor"></span></p>
+                            <p><strong><i class="bi bi-person text-info"></i> Penulis:</strong> <span id="modalAuthor"></span></p>
                             <p><strong><i class="bi bi-calendar2 text-info"></i> Tahun:</strong> <span id="modalYear"></span></p>
-                            <p><strong>Total Buku:</strong> 10</p>
-                            <p><strong>Tersedia Buku:</strong> 5</p>
-                            <p><strong>Telah Dibaca Oleh:</strong> 50 Orang</p>
+                            <p><strong><i class="bi bi-calendar4 text-info"></i> Katagori:</strong> <span id="modalKatagori"></span></p>
+                            <p><strong><i class="bi bi-book text-info"></i> Jumlah Buku:</strong> <span id="modalTotal"></span></p>
                             <p><strong>Sedang Dipinjam Oleh:</strong> 2 Orang</p>
+                            <p>
+                                <strong><i class="bi bi-star-fill text-warning"></i> Rating:</strong>
+                                <span class="text-warning">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-half"></i>
+                                    <i class="bi bi-star"></i>
+                                </span>
+                                <small>(3.5 dari 5)</small>
+                            </p>
                         </div>
                     </div>
                     <hr>
                     <h5><i class="bi bi-bookmark-check text-warning"></i> Deskripsi</h5>
                     <p id="modalDescription">Kita semua tahu bahwa naskah kuno Nusantara merupakan salah satu warisa...</p>
+                    <hr>
+                    <h5><i class="bi bi-chat-dots text-success"></i> Ulasan</h5>
+                    <div class="reviews">
+                        <div class="review mb-3">
+                            <p><strong>John Doe</strong> </p>
+                            <p>"Buku ini sangat informatif dan mudah dipahami!"</p>
+                            <span class="text-warning">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                            </span>
+                        </div>
                 </div>
                 <div class="modal-footer">
-                    <form id="borrowForm" method="POST">
+                    <form id="borrowForm" action="" method="POST">
                         @csrf
-                        <button type="submit" class="btn btn-primary"><i class="bi bi-cart"></i> Pinjam</button>
+                        <button type="submit" class="btn btn-primary">Pinjam Buku</button>
                     </form>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                 </div>
             </div>
         </div>
     </div>
 
+
+
 </div>
 
 <script>
-    function showBookDetail(book) {
-        document.getElementById('modalImage').src = book.image_url;
-        document.getElementById('modalTitle').textContent = book.judul;
-        document.getElementById('modalAuthor').textContent = book.penulis;
-        document.getElementById('modalYear').textContent = book.tahun;
-        document.getElementById('modalDescription').textContent = book.deskripsi ;
-        document.getElementById('borrowForm').action = `/user/pinjam/${book.id}`;
-    }
+function showBookDetail(book) {
+    document.getElementById('modalImage').src = book.image_url;
+    document.getElementById('modalTitle').textContent = book.judul;
+    document.getElementById('modalAuthor').textContent = book.penulis;
+    document.getElementById('modalYear').textContent = book.tahun;
+    document.getElementById('modalKatagori').textContent = book.katagori;
+    document.getElementById('modalTotal').textContent = book.jumlah;
+    document.getElementById('modalDescription').textContent = book.deskripsi ;
+    document.getElementById('borrowForm').action = `/user/pinjam/${book.id}`;
+}
+
 </script>
 @endsection

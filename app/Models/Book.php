@@ -37,5 +37,10 @@ class Book extends Model
     {
         return $this->hasMany(PeminjamanBuku::class, 'book_id');
     }
+    public function ratings()
+{
+    return $this->hasMany(Rating::class);
+}
+
 
 }

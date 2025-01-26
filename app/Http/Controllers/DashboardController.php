@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Book;
+use App\Models\PeminjamanBuku;
 
 class DashboardController extends Controller
 {
@@ -14,8 +15,10 @@ class DashboardController extends Controller
 
         $totalBuku = Book::count();
 
+        $totalPeminjaman = PeminjamanBuku::count();
+
         // Kirim data ke view
-        return view('admin.dashboard', compact('totalPengguna', 'totalBuku'));
+        return view('admin.dashboard', compact('totalPengguna', 'totalBuku', 'totalPeminjaman'));
     }
     public function kelola()
     {

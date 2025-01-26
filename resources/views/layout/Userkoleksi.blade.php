@@ -35,11 +35,10 @@
         <!-- Content Wrapper -->
         <div class="body-wrapper">
             <!-- Content Section -->
-            @include('layout.ulasanUser')
+            @include('layout.koleksiUser')
             @yield('content')
         </div>
 
-        @include('layout.FooterUser')
     </div>
 
     <!-- Vendor JS Files -->

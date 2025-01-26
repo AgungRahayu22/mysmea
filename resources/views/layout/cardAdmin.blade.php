@@ -53,7 +53,7 @@
                         <i class="ti ti-credit-card fs-8"></i>
                     </div>
                     <h5 class="mt-3 fw-semibold">Total Peminjam</h5>
-                    <h2 class="fw-bold">75</h2>
+                    <h2 class="fw-bold">{{ $totalPeminjaman }}</h2>
                 </div>
             </div>
         </div>
