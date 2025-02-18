@@ -18,4 +18,12 @@ class PetugasController extends Controller
     {
         return view('petugas.laporan');
     }
+    public function penerbit()
+    {
+        return view('petugas.penerbit');
+    }
+    public function kategori()
+    {
+        return view('petugas.kategori');
+    }
 }

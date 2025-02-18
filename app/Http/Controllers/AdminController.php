@@ -34,5 +34,10 @@ class AdminController extends Controller
     {
         return view('admin.laporanbuku');
     }
+    public function Katagoribuku()
+    {
+        return view('admin.katagori');
+    }
+
 
 }

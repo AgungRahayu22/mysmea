@@ -7,21 +7,32 @@ use Livewire\Component;
 
 class RegisterComponent extends Component
 {
-    public $nama, $email, $password, $password_confirmation, $alamat, $telepon, $jenis;
+    public $nama, $email, $password, $password_confirmation, $alamat, $telepon;
 
-    // Menambahkan validasi password_confirmation
+    // Menambahkan validasi untuk input
     protected $rules = [
         'nama' => 'required|string|max:255',
         'email' => 'required|email|unique:users,email',
         'password' => 'required|confirmed|min:4',
         'alamat' => 'required|string|max:255',
         'telepon' => 'required|string|max:15',
-        'jenis' => 'required|in:admin,petugas,user',
+    ];
+
+    // Menambahkan custom message untuk validasi
+    protected $messages = [
+        'nama.required' => 'Nama wajib diisi.',
+        'email.required' => 'Email wajib diisi.',
+        'email.email' => 'Email tidak valid.',
+        'email.unique' => 'Email sudah terdaftar.',
+        'password.required' => 'Password wajib diisi.',
+        'password.confirmed' => 'Password dan konfirmasi password tidak cocok.',
+        'password.min' => 'Password harus memiliki minimal 4 karakter.',
+        'alamat.required' => 'Alamat wajib diisi.',
+        'telepon.required' => 'Nomor telepon wajib diisi.',
     ];
 
     public function register()
     {
-
         
         // Melakukan validasi
         $this->validate();
@@ -33,7 +44,7 @@ class RegisterComponent extends Component
             'password' => Hash::make($this->password),
             'alamat' => $this->alamat,
             'telepon' => $this->telepon,
-            'jenis' => $this->jenis,
+            'jenis' => 'user', // Jenis diatur otomatis menjadi 'user'
         ]);
 
         // Menampilkan pesan sukses dan mengarahkan ke halaman login

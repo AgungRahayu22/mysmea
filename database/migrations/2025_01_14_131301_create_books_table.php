@@ -10,14 +10,16 @@ class CreateBooksTable extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('katagori_id');
+            $table->unsignedBigInteger('penerbit_id');
             $table->string('judul');
             $table->string('penulis');
-            $table->string('penerbit');
-            $table->string('katagori');
+            $table->foreign('kategori_id')->references('id')->on('buku_kategori');
+            $table->foreign('penerbit_id')->references('id')->on('penerbit');
             $table->integer('tahun');
             $table->integer('jumlah');
             $table->string('image_url');
-            $table->string('pdf_url');
+            $table->string('pdf_path')->nullable();
             $table->string('deskripsi');
             $table->timestamps();
         });

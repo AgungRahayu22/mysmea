@@ -11,7 +11,7 @@ class TambahAnggotaController extends Controller
     public function index()
     {
         // Mendapatkan semua pengguna
-        $users = User::all();
+         $users = User::whereIn('jenis', ['user', 'petugas','admin'])->get();
         return view('admin.kelola', compact('users'));
     }
 
@@ -23,7 +23,7 @@ class TambahAnggotaController extends Controller
             'nama' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6|confirmed',
-            'jenis' => 'required|in:admin,petugas,user',
+            'jenis' => 'required|in:admin,petugas,user,superadmin',
             'alamat' => 'required|string|max:255',
             'telepon' => 'required|string|max:15',
         ]);
@@ -47,35 +47,46 @@ class TambahAnggotaController extends Controller
         return view('admin.kelola', compact('user')); // Membuka view editUser untuk mengedit pengguna
     }
 
-    public function update(Request $request, $id)
-    {
-        // Validasi data input
-        $request->validate([
-            'nama' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $id,
-            'jenis' => 'required|in:admin,petugas,user',
-            'alamat' => 'required|string|max:255',
-            'telepon' => 'required|string|max:15',
-        ]);
+public function update(Request $request, $id)
+{
+    $user = User::findOrFail($id);
 
-        $user = User::findOrFail($id);
-        $user->update([
-            'nama' => $request->nama,
-            'email' => $request->email,
-            'jenis' => $request->jenis,
-            'alamat' => $request->alamat,
-            'telepon' => $request->telepon,
-        ]);
-
-        return redirect()->route('admin.kelola')->with('success', 'Pengguna berhasil diperbarui.');
+    if ($user->jenis === 'admin') {
+        return redirect()->route('admin.kelola')->with('error', 'Admin tidak dapat diubah.');
     }
 
+    // Validasi data input
+    $request->validate([
+        'nama' => 'required|string|max:255',
+        'email' => 'required|email|unique:users,email,' . $id,
+        'jenis' => 'required|in:petugas,user',
+        'alamat' => 'required|string|max:255',
+        'telepon' => 'required|string|max:15',
+    ]);
 
-    public function destroy($id)
-    {
-        $user = User::findOrFail($id);
-        $user->delete();
+    $user->update([
+        'nama' => $request->nama,
+        'email' => $request->email,
+        'jenis' => $request->jenis,
+        'alamat' => $request->alamat,
+        'telepon' => $request->telepon,
+    ]);
 
-        return redirect()->route('admin.kelola')->with('success', 'Pengguna berhasil dihapus.');
+    return redirect()->route('admin.kelola')->with('success', 'Pengguna berhasil diperbarui.');
+}
+
+
+
+public function destroy($id)
+{
+    $user = User::findOrFail($id);
+
+    if ($user->jenis === 'admin') {
+        return redirect()->route('admin.kelola')->with('error', 'Admin tidak dapat dihapus.');
     }
+
+    $user->delete();
+    return redirect()->route('admin.kelola')->with('success', 'Pengguna berhasil dihapus.');
+}
+
 }

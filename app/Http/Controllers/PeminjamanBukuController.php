@@ -7,7 +7,7 @@ use App\Models\PeminjamanBuku;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
-
+use App\Models\LogActivity;
 
 class PeminjamanBukuController extends Controller
 {
@@ -27,6 +27,16 @@ class PeminjamanBukuController extends Controller
             return redirect()->back()->with('error', 'Buku tidak tersedia dan dipinjam.');
         }
 
+        // Cek apakah pengguna sudah meminjam buku yang sama
+        $existingLoan = PeminjamanBuku::where('book_id', $bookId)
+            ->where('user_id', Auth::id())
+            ->whereNull('tanggal_kembali') // Buku belum dikembalikan
+            ->first();
+
+        if ($existingLoan) {
+            return redirect()->back()->with('error', 'Anda sudah meminjam buku ini.');
+        }
+
         // Menyimpan data peminjaman
         PeminjamanBuku::create([
             'book_id' => $bookId,
@@ -43,6 +53,7 @@ class PeminjamanBukuController extends Controller
     }
 
 
+
     // Fungsi untuk menampilkan daftar peminjaman
     public function index()
     {
@@ -50,11 +61,14 @@ class PeminjamanBukuController extends Controller
         $peminjaman = PeminjamanBuku::with(['book', 'user'])->get();
 
         // Konversi tanggal_pinjam dan tanggal_kembali menjadi objek Carbon
-        $peminjaman = $peminjaman->map(function ($item) {
-            $item->tanggal_pinjam = Carbon::parse($item->tanggal_pinjam);  // Konversi tanggal_pinjam
+       $peminjaman = $peminjaman->map(function ($item) {
+            $item->tanggal_pinjam = Carbon::parse($item->tanggal_pinjam);
+            $item->batas_waktu = $item->tanggal_pinjam->copy()->addDays(7); // Menambahkan batas waktu pengembalian
+
             if ($item->tanggal_kembali) {
-                $item->tanggal_kembali = Carbon::parse($item->tanggal_kembali);  // Konversi tanggal_kembali jika ada
+                $item->tanggal_kembali = Carbon::parse($item->tanggal_kembali);
             }
+
             return $item;
         });
 

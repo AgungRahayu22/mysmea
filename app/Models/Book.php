@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Book extends Model
 {
@@ -12,35 +13,41 @@ class Book extends Model
     protected $fillable = [
         'judul',
         'penulis',
-        'penerbit',
-        'katagori',
+        'penerbit_id', // Disesuaikan dengan relasi
+        'kategori_id', // Disesuaikan dengan relasi
         'tahun',
         'jumlah',
         'image_url',
-        'pdf_url',
+        'pdf_path',
         'deskripsi',
     ];
 
-    // Menyambungkan ke relasi PeminjamanBuku
+    // Relasi ke PeminjamanBuku
     public function peminjamanBukus()
-    {
-        return $this->hasMany(PeminjamanBuku::class);
-    }
-
-    public function showPdf($id)
-    {
-        $book = Book::findOrFail($id);
-
-        return redirect($book->pdf_url); // Redirect ke URL PDF
-    }
-    public function peminjamanBuku()
     {
         return $this->hasMany(PeminjamanBuku::class, 'book_id');
     }
-    public function ratings()
-{
-    return $this->hasMany(Rating::class);
-}
 
+    // Relasi ke Rating
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
+    }
+     public function averageRating()
+    {
+        return $this->ratings()->avg('rating');
+    }
+
+    // Relasi ke Kategori
+    public function penerbit()
+    {
+        return $this->belongsTo(Penerbit::class, 'penerbit_id');
+    }
+    public function kategori()
+    {
+        return $this->belongsTo(BukuKategori::class, 'kategori_id');
+    }
+
+    // Relasi ke Penerbit
 
 }

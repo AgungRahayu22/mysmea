@@ -767,7 +767,7 @@ section,
   width: 100%;
   min-height: 70vh;
   position: relative;
-  padding: 120px 0 60px 0;
+  padding: 60px 0 60px 0;
   display: flex;
   align-items: center;
   border-bottom: 2px solid color-mix(in srgb, var(--accent-color), transparent 75%);

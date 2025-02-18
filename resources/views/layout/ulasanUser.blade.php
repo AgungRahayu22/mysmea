@@ -1,4 +1,6 @@
     @section('content')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <style>
         .card {
             max-width: 180px;
@@ -35,7 +37,7 @@
         .row {
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-between; /* Align items properly */
+            justify-content: start; /* Align items properly */
             gap: 15px; /* Add spacing between cards */
         }
         .col-custom {
@@ -55,9 +57,59 @@
             }
         }
     </style>
+    <style>
+.review-text {
+    position: relative;
+    max-height: 4.5em; /* Sekitar 3 baris text */
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+.review-text.expanded {
+    max-height: 1000px; /* Nilai besar untuk memastikan semua teks terlihat */
+}
+
+.show-more-btn {
+    color: #007bff;
+    background: none;
+    border: none;
+    padding: 2px 0;
+    font-size: 0.8rem;
+    cursor: pointer;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+.show-more-btn:hover {
+    text-decoration: underline;
+}
+
+.review-wrapper {
+    margin-bottom: 10px;
+}
+</style>
 
     <div class="container mt-5">
-        <h3 class="mb-5 text-xl font-semibold">Ulasan Buku Anda</h3>
+        <h2 class="section-title mb-4"><i class="bi bi-star-fill text-primary"></i> Ulasan Saya</h2>
+        @if(session('error'))
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Terjadi Kesalahan',
+                    text: "{{ session('error') }}",
+                });
+            </script>
+        @endif
+
+        @if(session('success'))
+            <script>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Sukses',
+                    text: "{{ session('success') }}",
+                });
+            </script>
+        @endif
 
         <div class="row">
             @foreach ($koleksi as $item)
@@ -72,22 +124,53 @@
                         <!-- Rating dan Ulasan -->
                         <div class="rating-section">
                             @if($item->book->ratings->isNotEmpty())
-                            <h6 class="font-weight-bold">Rating Anda:</h6>
-                            <p>{{ $item->book->ratings->first()->rating }} / 5</p>
-                            <h6 class="font-weight-bold">Ulasan:</h6>
-                            <p>{{ $item->book->ratings->first()->review }}</p>
+                                <h6 class="font-weight-bold">Rating Anda:</h6>
+                                <p>{{ $item->book->ratings->first()->rating }} / 5</p>
+                                <h6 class="font-weight-bold">Ulasan:</h6>
+                                <div class="review-wrapper">
+                                    <div class="review-text" id="review-{{ $item->book->ratings->first()->id }}">
+                                        {{ $item->book->ratings->first()->review }}
+                                    </div>
+                                    @if(strlen($item->book->ratings->first()->review) > 100)
+                                        <button class="show-more-btn"
+                                                onclick="toggleReview('review-{{ $item->book->ratings->first()->id }}', this)">
+                                            Lihat Selengkapnya
+                                        </button>
+                                    @endif
+                                </div>
                             @else
-                            <p class="text-muted">Anda belum memberikan ulasan untuk buku ini.</p>
+                                <p class="text-muted">Anda belum memberikan ulasan untuk buku ini.</p>
                             @endif
                         </div>
+                        @if($item->book->ratings->isNotEmpty())
+                            <form action="{{ route('ulasan.destroy', $item->book->ratings->first()->id) }}" method="POST" class="mt-2">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm w-100" onclick="return confirm('Apakah Anda yakin ingin menghapus ulasan ini?')">
+                                    Hapus Ulasan
+                                </button>
+                            </form>
+                        @endif
 
-                        <a href="{{ $item->book->pdf_url }}" target="_blank" class="btn btn-info btn-sm w-100">
-                            Baca Buku
-                        </a>
+
                     </div>
                 </div>
             </div>
             @endforeach
         </div>
     </div>
+    <script>
+function toggleReview(reviewId, button) {
+    const reviewElement = document.getElementById(reviewId);
+    const isExpanded = reviewElement.classList.contains('expanded');
+
+    if (isExpanded) {
+        reviewElement.classList.remove('expanded');
+        button.textContent = 'Lihat Selengkapnya';
+    } else {
+        reviewElement.classList.add('expanded');
+        button.textContent = 'Lihat Lebih Sedikit';
+    }
+}
+</script>
     @endsection

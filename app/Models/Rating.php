@@ -20,10 +20,15 @@ class Rating extends Model
     {
         return $this->belongsTo(Book::class);
     }
+    // Di model Book
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class, 'book_id');
+    }
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-    
+
 }

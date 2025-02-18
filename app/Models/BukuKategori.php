@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class BukuKategori extends Model
+{
+    use HasFactory;
+
+    protected $table = 'buku_kategori';
+    protected $fillable = ['nama_kategori'];
+    public $timestamps = false;
+
+    public function books()
+    {
+        return $this->hasMany(Book::class, 'kategori_id');
+    }
+}

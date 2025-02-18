@@ -9,32 +9,33 @@ class LoginComponent extends Component
     public $email, $password;
 
     public function proses()
-{
-    // Validasi input
-    $this->validate([
-        'email' => 'required|email',
-        'password' => 'required',
-    ], [
-        'email.required' => 'Email harus diisi',
-        'password.required' => 'Password harus diisi',
-    ]);
+    {
+        // Validasi input
+        $this->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ], [
+            'email.required' => 'Email harus diisi',
+            'password.required' => 'Password harus diisi',
+        ]);
 
-    // Autentikasi
-    if (Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
-        $user = Auth::user();
+        // Autentikasi
+        if (Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
+            $user = Auth::user();
 
-        // Arahkan pengguna ke halaman yang sesuai dengan perannya
-        if ($user->jenis === 'admin') {
-            return redirect()->route('admin.dashboard');
-        } elseif ($user->jenis === 'petugas') {
-            return redirect()->route('petugas.dabuk');
+            // Arahkan pengguna ke halaman sesuai dengan perannya
+            if ($user->jenis === 'superadmin') {
+                return redirect()->route('superadmin.index');
+            } elseif ($user->jenis === 'admin') {
+                return redirect()->route('admin.dashboard');
+            } elseif ($user->jenis === 'petugas') {
+                return redirect()->route('petugas.dabuk');
+            } else {
+                return redirect()->route('user.pinjam'); // Pastikan rute ini sesuai
+            }
         } else {
-            return redirect()->route('user.pinjam'); // Pastikan rute ini sesuai
+            // Jika login gagal
+            session()->flash('error', 'Email atau password salah.');
         }
-    } else {
-        // Jika login gagal
-        session()->flash('error', 'Email atau password salah.');
     }
-}
-
 }

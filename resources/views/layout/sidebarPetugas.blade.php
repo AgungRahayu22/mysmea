@@ -19,21 +19,37 @@
             <li class="sidebar-item">
               <a class="sidebar-link" href="{{ route('petugas.dabuk') }}" aria-expanded="false">
                 <span>
-                  <i class="ti ti-alert-circle"></i>
+                  <i class="ti ti-books"></i>
                 </span>
                 <span class="hide-menu">Pendataan Buku</span>
               </a>
             </li>
             <li class="sidebar-item">
+              <a class="sidebar-link" href="{{ route('petugas.kategori') }}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-category"></i>
+                </span>
+                <span class="hide-menu">Kategori</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{{ route('petugas.penerbit') }}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-sun"></i>
+                </span>
+                <span class="hide-menu">Penerbit</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
               <a class="sidebar-link" href="{{ route('petugas.laporan') }}" aria-expanded="false">
                 <span>
-                  <i class="ti ti-typography"></i>
+                  <i class="ti ti-book"></i>
                 </span>
                 <span class="hide-menu">Laporan Buku</span>
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="{{ route('logout') }}" aria-expanded="false">
+              <a class="sidebar-link" href="{{ route('logout') }}" aria-expanded="false" onclick="confirmLogout(event)">
                 <span>
                   <i class="ti ti-login"></i>
                 </span>
@@ -47,3 +63,24 @@
       </div>
       <!-- End Sidebar scroll-->
     </aside>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+  function confirmLogout(event) {
+    event.preventDefault(); // Mencegah logout langsung
+    Swal.fire({
+      title: "Apakah Anda yakin?",
+      text: "Anda akan logout dari sistem!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya, logout!",
+      cancelButtonText: "Batal"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = event.target.href; // Redirect ke logout jika dikonfirmasi
+      }
+    });
+  }
+</script>

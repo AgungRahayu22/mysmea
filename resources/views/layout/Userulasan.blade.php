@@ -39,7 +39,6 @@
             @yield('content')
         </div>
 
-        @include('layout.FooterUser')
     </div>
 
     <!-- Vendor JS Files -->

@@ -24,6 +24,7 @@
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
+
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
 
@@ -51,15 +52,14 @@
       <nav id="navmenu" class="navmenu">
         <ul>
           <li><a href="#hero" class="active">Home</a></li>
-          <li><a href="#about">About</a></li>
+          <li><a href="{{ route('about') }}">About</a></li>
           <li><a href="#team">Book</a></li>
-          <li><a href="#services">Services</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
 
-    <a class="btn-getstarted" href="{{ route('login') }}">Log In</a>
-    <a class="btn-getstarted" href="{{ route('register') }}">Register</a>
+        <a class="btn-getstarted" href="{{ route('login') }}">Log In</a>
+        <a class="btn-getstarted" href="{{ route('register') }}">Register</a>
 
 
     </div>
@@ -69,66 +69,32 @@
 
     <!-- Hero Section -->
     <section id="hero" class="section hero light-background">
-
-      <div class="container">
-        <div class="row gy-4">
-          <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center" data-aos="fade-up">
-            <h1>Buka dunia pengetahuan bersama MySmeaBooks.</h1>
-            <p>Mari wujudkan impianmu dan cita-citamu bersama kami!</p>
-            <div class="d-flex">
-              <a href="#hero" class="btn-get-started">Get Started</a>
-              <a href="" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Read now</span></a>
+    <div class="container">
+        <div id="premiumSlider" class="carousel slide mb-5" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+            <img src="../assetss/images/bnweb2.png" class="d-block w-100 h-100" alt="Premium Package Banner">
             </div>
-          </div>
-          <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-out" data-aos-delay="200">
-            <img src="assets/img/undraw_font_cooz.svg" class="img-fluid animated" alt="">
-          </div>
+            <div class="carousel-item">
+            <img src="../assetss/images/bnweb3.png" class="d-block w-100 h-100" alt="Premium Package Banner">
+            </div>
         </div>
-      </div>
 
-    </section><!-- /Hero Section -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#premiumSlider" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#premiumSlider" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+        </div>
+    </div>
+    </section>
+
 
     <!-- About Section -->
-    <section id="about" class="section about">
 
-      <div class="container">
-
-        <div class="row gy-3">
-
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-            <img src="assets/img/undraw_organize-resume_ihw6.svg" alt="" class="img-fluid">
-          </div>
-
-          <div class="col-lg-6 d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="200">
-            <div class="about-content ps-0 ps-lg-3">
-              <h3>MySmeaBooks memberikan pengalaman membaca yang menyenangkan dengan akses mudah ke berbagai buku dan sumber belajar</h3>
-              <ul>
-                <li>
-                  <i class="bi bi-diagram-3"></i>
-                  <div>
-                    <h4>Akses mudah ke buku dan materi pembelajaran di </h4>
-                    <p>MySmeaBooks untuk pengalaman belajar yang efisien.</p>
-                  </div>
-                </li>
-                <li>
-                  <i class="bi bi-fullscreen-exit"></i>
-                  <div>
-                    <h4>MySmeaBooks memberikan kemudahan akses </h4>
-                    <p>ke berbagai sumber belajar tanpa batas.</p>
-                  </div>
-                </li>
-              </ul>
-              <p>
-                Nikmati akses mudah ke buku dan materi pembelajaran yang mendukung proses belajar Anda di MySmeaBooks. Temukan berbagai sumber pengetahuan yang membantu, tanpa hambatan, untuk pengalaman belajar yang lebih baik
-              </p>
-            </div>
-
-          </div>
-        </div>
-
-      </div>
-
-    </section><!-- /About Section -->
 
     <section id="team" class="team section">
         <div class="container section-title" data-aos="fade-up">
@@ -137,197 +103,310 @@
         </div>
 
         <div class="container">
-            <div class="row gy-4">
-                @foreach ($books as $book)
-                    <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-                        <div class="member">
-                            <img src="{{ $book->image_url }}" class="img-fluid book-image" alt="{{ $book->judul }}">
-                            <div class="member-info">
-                                <div class="member-info-content">
-                                    <h4>{{ $book->judul }}</h4>
-                                    <span>{{ $book->penulis }}</span>
+        <div class="row gy-3 justify-content-start">
+            @foreach ($books->take(4) as $book)
+                <div class="col-lg-3 col-md-3 col-sm-4 col-6 text-center" data-aos="fade-up" data-aos-delay="100">
+                    <div class="member" data-bs-toggle="modal" data-bs-target="#bookDetailModal{{ $book->id }}">
+                        <img src="{{ $book->image_url }}" class="img-fluid book-image rounded" alt="{{ $book->judul }}">
+                        <div class="member-info d-flex align-items-center justify-content-center">
+                            <div class="member-info-content">
+                                <h6 class="text-truncate text-center text-white">{{ $book->judul }}</h6>
+                                <span class="d-block text-center">{{ $book->penulis }}</span>
+                                <div class="rating mt-2 text-warning d-flex justify-content-center">
+                                    @php
+                                        $rating = round($book->averageRating());
+                                    @endphp
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        @if ($i <= $rating)
+                                            <i class="bi bi-star-fill"></i>
+                                        @else
+                                            <i class="bi bi-star"></i>
+                                        @endif
+                                    @endfor
                                 </div>
-                                    <div class="social">
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#bookDetailModal{{ $book->id }}">
-                                            <i class="bi bi-info"></i>
-                                        </a>
-                                    </div>
                             </div>
                         </div>
                     </div>
+                </div>
                     <!-- Modal untuk setiap buku -->
                     <div class="modal fade" id="bookDetailModal{{ $book->id }}" tabindex="-1" aria-labelledby="bookDetailModalLabel{{ $book->id }}" aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="bookDetailModalLabel{{ $book->id }}">{{ $book->judul }}</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <img src="{{ $book->image_url }}" class="img-fluid" alt="{{ $book->judul }}">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p><strong>Penulis:</strong> {{ $book->penulis }}</p>
-                                            <p><strong>Penerbit:</strong> {{ $book->penerbit }}</p>
-                                            <p><strong>Kategori:</strong> {{ $book->katagori }}</p>
-                                            <p><strong>Tahun Terbit:</strong> {{ $book->tahun }}</p>
-                                            <p><strong>Deskripsi:</strong> {{ $book->deskripsi }}</p>
-                                            <a href="{{ $book->pdf_url }}" target="_blank" class="btn btn-primary">Baca Buku</a>
-                                            <a href="{{ route('user.pinjam', $book->id) }}" class="btn btn-success">Pinjam Buku</a>
+                    <div class="modal-dialog modal-lg modal-dialog-centered"> <!-- Modal di tengah layar -->
+                        <div class="modal-content">
+                            <!-- Header -->
+                            <div class="modal-header bg-outline-primary text-white">
+                                <h5 class="modal-title" id="bookDetailModalLabel{{ $book->id }}">
+                                    <i class="bi bi-book"></i> {{ $book->judul }}
+                                </h5>
+                            </div>
+
+                            <!-- Body -->
+                            <div class="modal-body">
+                                <div class="row">
+                                    <!-- Gambar Buku -->
+                                    <div class="col-md-5 text-center">
+                                        <img src="{{ $book->image_url }}" class="img-fluid rounded shadow-lg" alt="{{ $book->judul }}">
+                                    </div>
+
+                                    <!-- Detail Buku -->
+                                    <div class="col-md-7 " data-kategori="{{ $book->kategori }}">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item rating text-warning">
+                                                    @php
+                                                        $rating = round($book->averageRating());
+                                                    @endphp
+                                                    @for ($i = 1; $i <= 5; $i++)
+                                                        @if ($i <= $rating)
+                                                            <i class="bi bi-star-fill"></i> {{-- Bintang penuh --}}
+                                                        @else
+                                                            <i class="bi bi-star"></i> {{-- Bintang kosong --}}
+                                                        @endif
+                                                    @endfor
+                                                    </li>
+                                            <li class="list-group-item"><strong>Penulis:</strong> {{ $book->penulis }}</li>
+                                            <li class="list-group-item"><strong>Penerbit:</strong> {{ $book->penerbit->nama_penerbit ?? '-' }}</li>
+                                            <li class="list-group-item"><strong>Kategori:</strong> {{ $book->kategori->nama_kategori ?? '-' }}</li>
+                                            <li class="list-group-item"><strong>Tahun Terbit:</strong> {{ $book->tahun }}</li>
+                                            <li class="list-group-item"><strong>Deskripsi:</strong> {{ $book->deskripsi }}</li>
+                                        </ul>
+
+                                        <!-- Tombol Aksi -->
+                                        <div class="mt-4 d-flex gap-2">
+                                            <a href="{{ route('login') }}" class="btn btn-primary flex-grow-1">
+                                                <i class="bi bi-book"></i> Baca Buku
+                                            </a>
+                                            <a href="{{ route('login') }}" class="btn btn-outline-primary flex-grow-1">
+                                                <i class="bi bi-journal-arrow-down"></i> Pinjam Buku
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                <i class="bi bi-x-circle"></i> Tutup
+                                            </button>
+                                        </div>
+
                         </div>
                     </div>
+                </div>
+
+                @endforeach
+            </div>
+        </div>
+    </section>
+
+    <section id="team" class="team section">
+        <div class="container section-title" data-aos="fade-up">
+            <h2>Buku Terbaru</h2>
+            <p>Mari mulai petualangan membaca Anda di MySmeaBooks, dengan membaca buku terbaru!</p>
+        </div>
+
+        <div class="container">
+        <div class="row gy-3 justify-content-start">
+            @foreach ($books->sortByDesc('created_at')->take(4) as $book)
+                <div class="col-lg-3 col-md-3 col-sm-4 col-6 text-center" data-aos="fade-up" data-aos-delay="100">
+                    <div class="member" data-bs-toggle="modal" data-bs-target="#bookDetailModal{{ $book->id }}">
+                        <img src="{{ $book->image_url }}" class="img-fluid book-image rounded" alt="{{ $book->judul }}">
+                        <div class="member-info d-flex align-items-center justify-content-center">
+                            <div class="member-info-content">
+                                <h6 class="text-truncate text-center text-white">{{ $book->judul }}</h6>
+                                <span class="d-block text-center">{{ $book->penulis }}</span>
+                                <div class="rating mt-2 text-warning d-flex justify-content-center">
+                                    @php
+                                        $rating = round($book->averageRating());
+                                    @endphp
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        @if ($i <= $rating)
+                                            <i class="bi bi-star-fill"></i>
+                                        @else
+                                            <i class="bi bi-star"></i>
+                                        @endif
+                                    @endfor
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    <!-- Modal untuk setiap buku -->
+                    <div class="modal fade" id="bookDetailModal{{ $book->id }}" tabindex="-1" aria-labelledby="bookDetailModalLabel{{ $book->id }}" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered"> <!-- Modal di tengah layar -->
+                        <div class="modal-content">
+                            <!-- Header -->
+                            <div class="modal-header bg-outline-primary text-white">
+                                <h5 class="modal-title" id="bookDetailModalLabel{{ $book->id }}">
+                                    <i class="bi bi-book"></i> {{ $book->judul }}
+                                </h5>
+                            </div>
+
+                            <!-- Body -->
+                            <div class="modal-body">
+                                <div class="row">
+                                    <!-- Gambar Buku -->
+                                    <div class="col-md-5 text-center">
+                                        <img src="{{ $book->image_url }}" class="img-fluid rounded shadow-lg" alt="{{ $book->judul }}">
+                                    </div>
+
+                                    <!-- Detail Buku -->
+                                    <div class="col-md-7 " data-kategori="{{ $book->kategori }}">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item rating text-warning">
+                                                    @php
+                                                        $rating = round($book->averageRating());
+                                                    @endphp
+                                                    @for ($i = 1; $i <= 5; $i++)
+                                                        @if ($i <= $rating)
+                                                            <i class="bi bi-star-fill"></i> {{-- Bintang penuh --}}
+                                                        @else
+                                                            <i class="bi bi-star"></i> {{-- Bintang kosong --}}
+                                                        @endif
+                                                    @endfor
+                                                    </li>
+                                            <li class="list-group-item"><strong>Penulis:</strong> {{ $book->penulis }}</li>
+                                            <li class="list-group-item"><strong>Penerbit:</strong> {{ $book->penerbit->nama_penerbit ?? '-' }}</li>
+                                            <li class="list-group-item"><strong>Kategori:</strong> {{ $book->kategori->nama_kategori ?? '-' }}</li>
+                                            <li class="list-group-item"><strong>Tahun Terbit:</strong> {{ $book->tahun }}</li>
+                                            <li class="list-group-item"><strong>Deskripsi:</strong> {{ $book->deskripsi }}</li>
+                                        </ul>
+
+                                        <!-- Tombol Aksi -->
+                                        <div class="mt-4 d-flex gap-2">
+                                            <a href="{{ route('login') }}" class="btn btn-primary flex-grow-1">
+                                                <i class="bi bi-book"></i> Baca Buku
+                                            </a>
+                                            <a href="{{ route('login') }}" class="btn btn-outline-primary flex-grow-1">
+                                                <i class="bi bi-journal-arrow-down"></i> Pinjam Buku
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                <i class="bi bi-x-circle"></i> Tutup
+                                            </button>
+                                        </div>
+
+                        </div>
+                    </div>
+                </div>
+
                 @endforeach
             </div>
         </div>
     </section>
 
 
-    <!-- Services Section -->
-    <section id="services" class="services section light-background">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Services</h2>
-        <p>Kami menyediakan layanan terbaik di MySmeaBooks untuk memastikan pengalaman belajar Anda berjalan lancar dan menyenangkan.</p>
-      </div><!-- End Section Title -->
-
-      <div class="container">
-
-        <div class="row gy-4">
-
-          <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="100">
-            <div class="service-item position-relative">
-              <div class="icon"><i class="bi bi-activity icon"></i></div>
-              <h4><a href="#services" class="stretched-link">Akses Buku Digital</a></h4>
-            <p>MySmeaBooks menyediakan akses mudah ke ribuan buku digital untuk mendukung proses belajar Anda.</p>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="200">
-            <div class="service-item position-relative">
-              <div class="icon"><i class="bi bi-bounding-box-circles icon"></i></div>
-              <h4><a href="#services" class="stretched-link">Kategori Buku yang Beragam</a></h4>
-                <p>Temukan buku berdasarkan kategori seperti pelajaran, literatur, referensi, dan masih banyak lagi.</p>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="300">
-            <div class="service-item position-relative">
-              <div class="icon"><i class="bi bi-calendar4-week icon"></i></div>
-              <h4><a href="#services" class="stretched-link">Fitur Bookmark</a></h4>
-                <p>Simpan buku favorit Anda untuk memudahkan akses di lain waktu.</p>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="400">
-            <div class="service-item position-relative">
-              <div class="icon"><i class="bi bi-broadcast icon"></i></div>
-              <h4><a href="#services" class="stretched-link">Dukungan Pengguna</a></h4>
-                <p>Tim kami siap membantu Anda dengan pertanyaan atau masalah terkait MySmeaBooks.</p>
-            </div>
-          </div><!-- End Service Item -->
-
+    <section id="team" class="team section">
+        <div class="container section-title" data-aos="fade-up">
+            <h2>Buku Populer</h2>
+            <p>Mari mulai petualangan membaca Anda di MySmeaBooks,dengan membaca buku terpopuler !</p>
         </div>
 
-      </div>
-
-    </section><!-- /Services Section -->
-
-
-
-    <!-- Faq Section -->
-    <section id="faq" class="faq section light-background">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Frequently Asked Questions</h2>
-        <p>Beberapa Pertanyaan yang sering ditanyakan</p>
-      </div><!-- End Section Title -->
-
-      <div class="container">
-
-        <div class="row">
-
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-
-            <div class="faq-container">
-
-              <div class="faq-item">
-                <h3>Apa itu MySmeaBooks?</h3>
-                <div class="faq-content">
-                  <p>MySmeaBooks adalah platform perpustakaan digital yang dirancang untuk memberikan akses mudah ke berbagai buku dan materi pembelajaran bagi siswa dan guru.</p>
+        <div class="container">
+        <div class="row gy-3 justify-content-start">
+            @foreach ($books->sortByDesc('tahun')->take(4) as $book)
+                <div class="col-lg-3 col-md-3 col-sm-4 col-6 text-center" data-aos="fade-up" data-aos-delay="100">
+                    <div class="member" data-bs-toggle="modal" data-bs-target="#bookDetailModal{{ $book->id }}">
+                        <img src="{{ $book->image_url }}" class="img-fluid book-image rounded" alt="{{ $book->judul }}">
+                        <div class="member-info d-flex align-items-center justify-content-center">
+                            <div class="member-info-content">
+                                <h6 class="text-truncate text-center text-white">{{ $book->judul }}</h6>
+                                <span class="d-block text-center">{{ $book->penulis }}</span>
+                                <div class="rating mt-2 text-warning d-flex justify-content-center">
+                                    @php
+                                        $rating = round($book->averageRating());
+                                    @endphp
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        @if ($i <= $rating)
+                                            <i class="bi bi-star-fill"></i>
+                                        @else
+                                            <i class="bi bi-star"></i>
+                                        @endif
+                                    @endfor
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
+                    <!-- Modal untuk setiap buku -->
+                    <div class="modal fade" id="bookDetailModal{{ $book->id }}" tabindex="-1" aria-labelledby="bookDetailModalLabel{{ $book->id }}" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered"> <!-- Modal di tengah layar -->
 
-              <div class="faq-item">
-                <h3>Bagaimana cara mendaftar di MySmeaBooks?</h3>
-                <div class="faq-content">
-                  <p>Anda dapat mendaftar dengan mengklik tombol "Register" di halaman utama dan mengisi formulir pendaftaran dengan informasi yang diperlukan.</p>
+                        <div class="modal-content">
+                            <!-- Header -->
+                            <div class="modal-header bg-outline-primary text-white">
+                                <h5 class="modal-title" id="bookDetailModalLabel{{ $book->id }}">
+                                    <i class="bi bi-book"></i> {{ $book->judul }}
+                                </h5>
+                            </div>
+
+                            <!-- Body -->
+                            <div class="modal-body">
+                                <div class="row">
+                                    <!-- Gambar Buku -->
+                                    <div class="col-md-5 text-center">
+                                        <img src="{{ $book->image_url }}" class="img-fluid rounded shadow-lg" alt="{{ $book->judul }}">
+                                    </div>
+
+                                    <!-- Detail Buku -->
+                                    <div class="col-md-7 " data-kategori="{{ $book->kategori }}">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item rating text-warning">
+                                                    @php
+                                                        $rating = round($book->averageRating());
+                                                    @endphp
+                                                    @for ($i = 1; $i <= 5; $i++)
+                                                        @if ($i <= $rating)
+                                                            <i class="bi bi-star-fill"></i> {{-- Bintang penuh --}}
+                                                        @else
+                                                            <i class="bi bi-star"></i> {{-- Bintang kosong --}}
+                                                        @endif
+                                                    @endfor
+                                                    </li>
+                                            <li class="list-group-item"><strong>Penulis:</strong> {{ $book->penulis }}</li>
+                                            <li class="list-group-item"><strong>Penerbit:</strong> {{ $book->penerbit->nama_penerbit ?? '-' }}</li>
+                                            <li class="list-group-item"><strong>Kategori:</strong> {{ $book->kategori->nama_kategori ?? '-' }}</li>
+                                            <li class="list-group-item"><strong>Tahun Terbit:</strong> {{ $book->tahun }}</li>
+                                            <li class="list-group-item"><strong>Deskripsi:</strong> {{ $book->deskripsi }}</li>
+                                        </ul>
+
+                                        <!-- Tombol Aksi -->
+                                        <div class="mt-4 d-flex gap-2">
+                                            <a href="{{ route('login') }}" class="btn btn-primary flex-grow-1">
+                                                <i class="bi bi-book"></i> Baca Buku
+                                            </a>
+                                            <a href="{{ route('login') }}" class="btn btn-outline-primary flex-grow-1">
+                                                <i class="bi bi-journal-arrow-down"></i> Pinjam Buku
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                <i class="bi bi-x-circle"></i> Tutup
+                                            </button>
+                                        </div>
+
+                        </div>
+                    </div>
                 </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
 
-              <div class="faq-item">
-                <h3>Apa saja buku yang tersedia di MySmeaBooks?</h3>
-                <div class="faq-content">
-                    <p>Kami menyediakan berbagai macam buku pelajaran, literatur, dan sumber belajar lainnya yang sesuai dengan kebutuhan pendidikan siswa.</p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
-
+                @endforeach
             </div>
-
-          </div><!-- End Faq Column-->
-
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-
-            <div class="faq-container">
-
-              <div class="faq-item">
-                <h3>Siapa saja yang bisa menggunakan MySmeaBooks?</h3>
-                <div class="faq-content">
-                  <p>MySmeaBooks dapat digunakan oleh siswa, guru, dan siapa saja yang ingin mengakses buku serta sumber belajar digital.</p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
-
-              <div class="faq-item">
-                <h3>Apakah saya bisa menyimpan daftar buku favorit di MySmeaBooks?</h3>
-                <div class="faq-content">
-                    <p>Tentu! Anda bisa menandai buku favorit Anda dan menyimpannya di daftar pribadi untuk akses cepat di masa mendatang.</p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
-
-              <div class="faq-item">
-                <h3>Apakah ada batasan jumlah buku yang bisa dibaca?</h3>
-                <div class="faq-content">
-                  <p>Tidak ada batasan untuk membaca buku secara online. Anda bebas membaca sebanyak yang Anda mau!</p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
-
-            </div>
-
-          </div><!-- End Faq Column-->
-
         </div>
+    </section>
 
-      </div>
 
-    </section><!-- /Faq Section -->
+
+
+
+
 
     <!-- Team Section -->
 
 
-    <!-- Clients Section -->
 
 
   </main>

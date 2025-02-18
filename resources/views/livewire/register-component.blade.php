@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -190,12 +191,7 @@
                 </div>
 
                 <div class="form-group">
-                    <select wire:model="jenis" class="form-control" id="jenis" required>
-                        <option value="" disabled selected>Pilih Jenis</option>
-                        <option value="admin">Admin</option>
-                        <option value="petugas">Petugas</option>
-                        <option value="user">User</option>
-                    </select>
+                    <input type="hidden" wire:model="jenis" value="user">
                     @error('jenis')
                     <div class="alert alert-danger" role="alert">
                         {{ $message }}
@@ -236,7 +232,6 @@
             }
         }
     </script>
-
 </body>
 
 </html>
