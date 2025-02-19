@@ -12,52 +12,58 @@
     </div>
 
     <!-- Statistik -->
-    <div class="row mt-4">
-        <!-- Total Pengguna -->
-        <div class="col-lg-4 col-md-6">
-            <div class="card text-center">
-                <div class="card-body">
+    <div class="row g-3">
+    <!-- Total Pengguna -->
+    <div class="col-lg-4 col-md-6">
+        <a href="{{ route('admin.kelola') }}" class="text-decoration-none">
+            <div class="card text-center h-100">
+                <div class="card-body d-flex flex-column">
                     <div
-                        class="text-white bg-primary rounded-circle p-4 d-flex align-items-center justify-content-center mx-auto"
+                        class="text-white bg-primary rounded-circle p-4 d-flex align-items-center justify-content-center mx-auto mb-3"
                         style="width: 70px; height: 70px;">
                         <i class="ti ti-user fs-8"></i>
                     </div>
-                    <h5 class="mt-3 fw-semibold">Total Pengguna</h5>
+                    <h5 class="mt-auto fw-semibold text-dark">Total Pengguna</h5>
                     <h2 class="fw-bold">{{ $totalPengguna }}</h2>
                 </div>
             </div>
-        </div>
+        </a>
+    </div>
 
-        <!-- Total Buku -->
-        <div class="col-lg-4 col-md-6">
-            <div class="card text-center">
-                <div class="card-body">
+    <!-- Total Buku -->
+    <div class="col-lg-4 col-md-6">
+        <a href="{{ route('admin.databuku') }}" class="text-decoration-none">
+            <div class="card text-center h-100">
+                <div class="card-body d-flex flex-column">
                     <div
-                        class="text-white bg-success rounded-circle p-4 d-flex align-items-center justify-content-center mx-auto"
+                        class="text-white bg-success rounded-circle p-4 d-flex align-items-center justify-content-center mx-auto mb-3"
                         style="width: 70px; height: 70px;">
                         <i class="ti ti-book fs-8"></i>
                     </div>
-                    <h5 class="mt-3 fw-semibold">Total Buku</h5>
-                    <h2 class="fw-bold">{{ $totalBuku  }}</h2>
+                    <h5 class="mt-auto fw-semibold">Total Buku</h5>
+                    <h2 class="fw-bold">{{ $totalBuku }}</h2>
                 </div>
             </div>
-        </div>
+        </a>
+    </div>
 
-        <!-- Total Peminjam -->
-        <div class="col-lg-4 col-md-6">
-            <div class="card text-center">
-                <div class="card-body">
+    <!-- Total Peminjam -->
+    <div class="col-lg-4 col-md-6">
+        <a href="{{ route('admin.peminjamanbuku') }}" class="text-decoration-none">
+            <div class="card text-center h-100">
+                <div class="card-body d-flex flex-column">
                     <div
-                        class="text-white bg-warning rounded-circle p-4 d-flex align-items-center justify-content-center mx-auto"
+                        class="text-white bg-warning rounded-circle p-4 d-flex align-items-center justify-content-center mx-auto mb-3"
                         style="width: 70px; height: 70px;">
                         <i class="ti ti-credit-card fs-8"></i>
                     </div>
-                    <h5 class="mt-3 fw-semibold">Total Peminjam</h5>
+                    <h5 class="mt-auto fw-semibold">Total Peminjam</h5>
                     <h2 class="fw-bold">{{ $totalPeminjaman }}</h2>
                 </div>
             </div>
-        </div>
+        </a>
     </div>
+</div>
 </div>
 <div class="row mt-4">
     <div class="col-12">

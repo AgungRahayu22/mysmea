@@ -82,6 +82,14 @@
               </a>
             </li>
             <li class="sidebar-item">
+              <a class="sidebar-link" href="{{ route('admin.data') }}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-database"></i>
+                </span>
+                <span class="hide-menu">Back Up</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ route('logout') }}" aria-expanded="false" onclick="confirmLogout(event)">
                     <span>
                     <i class="ti ti-login"></i>

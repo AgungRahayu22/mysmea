@@ -62,9 +62,9 @@
                     <table class="table table-striped" id="categoryTable">
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th>Nama Kategori</th>
-                                <th>Aksi</th>
+                                <th class="text-center">#</th>
+                                <th class="text-left" style="width: 80%;">Nama Kategori</th>
+                                <th class="text-right" style="width: 20%;">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>

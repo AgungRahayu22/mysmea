@@ -63,6 +63,7 @@ Route::get('/admin/ulasanbuku', [AdminController::class, 'ulasanbuku'])->name('a
 Route::get('/admin/laporanbuku', [AdminController::class, 'laporanbuku'])->name('admin.laporanbuku');
 Route::get('/admin/katagori', [AdminController::class, 'katagoribuku'])->name('admin.katagori');
 Route::get('/admin/penerbit', [AdminController::class, 'penerbit'])->name('admin.penerbit');
+Route::get('/admin/data', [AdminController::class, 'Data'])->name('admin.data');
 
 Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard')->middleware('auth');
 Route::get('/admin/kelola', [TambahAnggotaController::class, 'index'])->name('admin.kelola');
@@ -146,3 +147,7 @@ Route::get('/petugas/penerbit', [PenerbitController::class, 'penerbit'])->name('
 Route::post('/petugas/penerbit', [PenerbitController::class, 'storePenerbit'])->name('petugas.penerbit.store');
 Route::put('/petugas/penerbit/{id}', [PenerbitController::class, 'updatePenerbit'])->name('petugas.penerbit.update');
 Route::delete('/petugas/penerbit/{id}', [PenerbitController::class, 'destroyPenerbit'])->name('petugas.penerbit.destroy');
+
+Route::get('/admin/export-database', [AdminController::class, 'exportDatabase'])->name('admin.export-database');
+Route::get('/admin/backup/download/{filename}', [AdminController::class, 'downloadBackup'])
+    ->name('admin.download-backup');

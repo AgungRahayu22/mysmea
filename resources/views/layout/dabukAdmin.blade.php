@@ -83,18 +83,6 @@
 
                 <div class="d-flex mb-3">
                     <input type="text" id="searchNama" class="form-control me-2" placeholder="Cari berdasarkan nama">
-
-                   <select id="kategori" class="form-control">
-                        <option value="">Semua Kategori</option>
-                        @foreach ($categories as $category)
-                            <option value="{{ $category }}"
-                                {{ isset($book) && $book->kategori_id == $category->id ? 'selected' : '' }}>
-                                {{ $category }}
-                            </option>
-                        @endforeach
-                    </select>
-
-
                 </div>
                 <div class="row">
                     @foreach($books as $book)

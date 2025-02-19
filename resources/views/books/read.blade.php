@@ -8,12 +8,33 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        :root {
+            --bg-primary: #ffffff;
+            --text-primary: #333333;
+            --bg-secondary: #f1f1f1;
+            --text-secondary: #000000;
+            --button-bg: #e0e0e0;
+            --button-hover-bg: #d0d0d0;
+        }
+
+        .dark-mode {
+            --bg-primary: #121212;
+            --text-primary: #e0e0e0;
+            --bg-secondary: #1e1e1e;
+            --text-secondary: #ffffff;
+            --button-bg: #2c2c2c;
+            --button-hover-bg: #3c3c3c;
         }
 
         html, body {
             height: 100%;
             width: 100%;
             font-family: Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
         }
 
         .app-container {
@@ -58,9 +79,10 @@
             left: 0;
             width: 100%;
             height: 50px;
-            background-color: #f1f1f1;
+            background-color: var(--bg-secondary);
             display: flex;
             align-items: center;
+            justify-content: space-between;
             padding: 0 15px;
             z-index: 10;
         }
@@ -69,16 +91,16 @@
             display: inline-flex;
             align-items: center;
             text-decoration: none;
-            color: #333;
+            color: var(--text-secondary);
             font-weight: bold;
-            background-color: #e0e0e0;
+            background-color: var(--button-bg);
             padding: 10px 15px;
             border-radius: 5px;
             transition: background-color 0.3s ease;
         }
 
         .back-button a:hover {
-            background-color: #d0d0d0;
+            background-color: var(--button-hover-bg);
         }
 
         .back-button a::before {
@@ -86,12 +108,29 @@
             margin-right: 8px;
             font-size: 20px;
         }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            color: var(--text-secondary);
+        }
+
+        .theme-toggle:focus {
+            outline: none;
+        }
     </style>
 </head>
 <body>
     <div class="app-container">
         <div class="back-button">
             <a href="{{ route('user.koleksi') }}">Kembali</a>
+            <button class="theme-toggle" aria-label="Toggle dark mode">
+                🌓
+            </button>
         </div>
         <div class="pdf-container">
             <iframe
@@ -104,6 +143,24 @@
     </div>
 
     <script>
+        // Dark Mode Functionality
+        const themeToggle = document.querySelector('.theme-toggle');
+        const htmlElement = document.documentElement;
+
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            htmlElement.classList.toggle('dark-mode', savedTheme === 'dark');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            htmlElement.classList.toggle('dark-mode');
+
+            // Save theme preference
+            const currentTheme = htmlElement.classList.contains('dark-mode') ? 'dark' : 'light';
+            localStorage.setItem('theme', currentTheme);
+        });
+
         // Mencegah shortcut keyboard untuk print dan download
         document.addEventListener('keydown', function(e) {
             if ((e.ctrlKey || e.metaKey) && (e.key === 'p' || e.key === 's')) {

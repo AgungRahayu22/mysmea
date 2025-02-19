@@ -134,7 +134,23 @@
     color: #dc3545;
 }
 </style>
+<style>
+#starRating .bi-star-fill {
+    color: #ffc107; /* Warna kuning untuk bintang terisi */
+    transition: color 0.2s ease;
+}
 
+#starRating .bi-star {
+    color: #6c757d; /* Warna abu-abu untuk bintang kosong */
+    transition: color 0.2s ease;
+}
+
+#starRating .bi-star:hover,
+#starRating .bi-star:hover ~ .bi-star {
+    color: #ffc107; /* Warna kuning saat hover */
+    cursor: pointer;
+}
+</style>
 <div class="container mt-5">
     @if(session('error'))
         <script>
@@ -292,6 +308,58 @@
 </div>
 
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Star Rating Functionality
+    const starRating = document.getElementById('starRating');
+    const ratingInput = document.getElementById('ratingInput');
+    const stars = starRating.querySelectorAll('.bi-star');
 
+    // Function to set stars
+    function setStars(rating) {
+        stars.forEach((star, index) => {
+            if (index < rating) {
+                star.classList.remove('bi-star');
+                star.classList.add('bi-star-fill');
+            } else {
+                star.classList.remove('bi-star-fill');
+                star.classList.add('bi-star');
+            }
+        });
+    }
+
+    // Add click event to each star
+    stars.forEach((star, index) => {
+        star.addEventListener('click', function() {
+            const rating = parseInt(this.dataset.value);
+            ratingInput.value = rating;
+            setStars(rating);
+        });
+
+        // Add hover effect
+        star.addEventListener('mouseover', function() {
+            const hoverRating = parseInt(this.dataset.value);
+            setStars(hoverRating);
+        });
+    });
+
+    // Reset to selected rating when mouse leaves
+    starRating.addEventListener('mouseleave', function() {
+        const currentRating = ratingInput.value ? parseInt(ratingInput.value) : 0;
+        setStars(currentRating);
+    });
+
+    // Function to set book ID in the modal
+    window.setBookId = function(bookId) {
+        document.getElementById('bookId').value = bookId;
+        // Reset rating when modal opens
+        ratingInput.value = '';
+        stars.forEach(star => {
+            star.classList.remove('bi-star-fill');
+            star.classList.add('bi-star');
+        });
+    };
+});
+</script>
 
 @endsection
