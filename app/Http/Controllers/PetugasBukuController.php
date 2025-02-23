@@ -18,7 +18,7 @@ class PetugasBukuController extends Controller
             'tahun' => 'required|integer',
             'jumlah' => 'required|integer',
             'image_url' => 'required|url',
-            'pdf_file' => 'required|mimes:pdf|max:10240',
+            'pdf_file' => 'required|mimes:pdf|max:61440',
             'deskripsi' => 'nullable|string',
         ]);
 
@@ -53,7 +53,7 @@ class PetugasBukuController extends Controller
             'tahun' => 'required|integer',
             'jumlah' => 'required|integer',
             'image_url' => 'required|url',
-            'pdf_file' => 'nullable|mimes:pdf|max:10240',
+            'pdf_file' => 'required|mimes:pdf|max:61440',
             'deskripsi' => 'nullable|string',
         ]);
 

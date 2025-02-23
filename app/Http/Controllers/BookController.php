@@ -59,7 +59,7 @@ class BookController extends Controller
             'tahun' => 'required|integer',
             'jumlah' => 'required|integer',
             'image_url' => 'required|url',
-            'pdf_file' => 'required|mimes:pdf|max:10240', // Validasi file PDF
+            'pdf_file' => 'required|mimes:pdf|max:61440', // Validasi file PDF
             'deskripsi' => 'nullable|string',
         ]);
 
@@ -98,7 +98,7 @@ class BookController extends Controller
             'tahun' => 'required|integer',
             'jumlah' => 'required|integer',
             'image_url' => 'required|url',
-            'pdf_file' => 'nullable|mimes:pdf|max:10240', // Optional file upload
+            'pdf_file' => 'required|mimes:pdf|max:61440', // Optional file upload
             'deskripsi' => 'nullable|string',
         ]);
 

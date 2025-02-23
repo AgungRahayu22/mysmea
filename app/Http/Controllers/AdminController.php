@@ -53,8 +53,9 @@ class AdminController extends Controller
             $yesterday = now()->yesterday()->format('Y-m-d');
 
             foreach ($files as $file) {
-                // Filter file backup hari kemarin
-                if (strpos($file, 'backup_perpus1_' . $yesterday) !== false) {
+                // Perbaiki pattern pencarian untuk mencocokkan format nama file yang benar
+                if (pathinfo($file, PATHINFO_EXTENSION) === 'sql' &&
+                    strpos($file, 'backup_' . env('DB_DATABASE') . '_' . $yesterday) !== false) {
                     $filepath = $backupPath . '/' . $file;
                     $yesterdayBackups[] = [
                         'filename' => $file,
@@ -69,6 +70,12 @@ class AdminController extends Controller
                 return $b['created_at'] - $a['created_at'];
             });
         }
+
+        // Debug: tambahkan log untuk memeriksa hasil
+        \Log::info('Yesterday Backups:', [
+            'date' => now()->yesterday()->format('Y-m-d'),
+            'found_files' => $yesterdayBackups
+        ]);
 
         return view('admin.data', compact('yesterdayBackups'));
     }
@@ -175,5 +182,71 @@ class AdminController extends Controller
             return back()->with('error', 'Gagal membuat backup: ' . $e->getMessage());
         }
     }
+    public function importDatabase(Request $request)
+{
+    try {
+        $request->validate([
+            'importFile' => 'required|file',
+        ]);
+
+        $file = $request->file('importFile');
+        $extension = strtolower($file->getClientOriginalExtension());
+
+        if ($extension !== 'sql') {
+            return back()->with('error', 'File harus berformat SQL');
+        }
+
+        // Buat nama file dengan format yang sama seperti backup
+        $database = env('DB_DATABASE');
+        $yesterday = now()->yesterday()->format('Y-m-d');
+        $time = now()->format('H-i-s');
+        $filename = "backup_{$database}_{$yesterday}_{$time}.sql";
+
+        // Simpan file ke folder backup
+        $backupPath = storage_path('app/backups');
+        if (!file_exists($backupPath)) {
+            mkdir($backupPath, 0755, true);
+        }
+
+        // Pindahkan file yang diupload ke folder backup
+        $file->move($backupPath, $filename);
+
+        return back()->with('success', 'File berhasil diimport ke riwayat backup');
+
+    } catch (\Exception $e) {
+        \Log::error('Import File Error: ' . $e->getMessage());
+        return back()->with('error', 'Gagal import file: ' . $e->getMessage());
+    }
+}
+
+public function previewImport(Request $request)
+{
+    try {
+        $request->validate([
+            'importFile' => 'required|file',
+        ]);
+
+        $file = $request->file('importFile');
+        $extension = strtolower($file->getClientOriginalExtension());
+
+        if ($extension !== 'sql') {
+            return response()->json(['error' => 'File harus berformat SQL'], 400);
+        }
+
+        // Preview sederhana dari file SQL
+        $preview = [
+            'file' => [
+                'exists' => true,
+                'count' => 1,
+                'status' => 'File akan disimpan di riwayat backup'
+            ]
+        ];
+
+        return response()->json($preview);
+
+    } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 400);
+    }
+}
 
 }

@@ -171,8 +171,17 @@
             });
         </script>
     @endif
-    <h2 class="section-title mb-4"><i class="bi bi-bookmarks-fill text-primary"></i> Buku Peminjaman Saya</h2>
+    <h2 class="section-title mb-2">
+        <i class="bi bi-bookmarks-fill text-primary"></i> Buku Peminjaman Saya
+    </h2>
 
+    <div class="alert alert-info d-flex align-items-center p-3 rounded-3 shadow-sm mb-4">
+        <i class="bi bi-info-circle-fill text-primary me-3 fs-4"></i>
+        <div>
+            <h6 class="alert-heading fw-semibold mb-1">Informasi Durasi Peminjaman</h6>
+            <p class="mb-0">Buku hanya boleh dipinjam selama maksimal <span class="fw-semibold">7 hari</span>.</p>
+        </div>
+    </div>
     @if($koleksi->isEmpty())
         <div class="text-center text-muted py-5">
             <p class="fs-5">Anda belum memiliki koleksi buku yang dipinjam.</p>

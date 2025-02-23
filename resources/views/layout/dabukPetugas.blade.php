@@ -84,15 +84,7 @@
                 <div class="d-flex mb-3">
                     <input type="text" id="searchNama" class="form-control me-2" placeholder="Cari berdasarkan nama">
 
-                   <select id="kategori" class="form-control">
-                        <option value="">Semua Kategori</option>
-                        @foreach ($categories as $category)
-                            <option value="{{ $category }}"
-                                {{ isset($book) && $book->kategori_id == $category->id ? 'selected' : '' }}>
-                                {{ $category }}
-                            </option>
-                        @endforeach
-                    </select>
+
 
 
                 </div>
@@ -417,26 +409,20 @@ document.querySelectorAll('.edit-button').forEach(button => {
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const searchNama = document.querySelector("#searchNama");
-    const kategori = document.querySelector("#kategori");
     const books = document.querySelectorAll(".col-md-3");
 
     function filterBooks() {
         const searchText = searchNama.value.toLowerCase();
-        const selectedCategory = kategori.value.toLowerCase();
 
         books.forEach(book => {
             const title = book.querySelector(".card-title").textContent.toLowerCase();
-            const category = book.getAttribute("data-kategori").toLowerCase();
-
             const nameMatch = title.includes(searchText);
-            const categoryMatch = selectedCategory === "" || category === selectedCategory;
 
-            book.style.display = nameMatch && categoryMatch ? "" : "none";
+            book.style.display = nameMatch ? "" : "none";
         });
     }
 
     searchNama.addEventListener("input", filterBooks);
-    kategori.addEventListener("change", filterBooks);
 });
 </script>
 <script>

@@ -422,33 +422,27 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
     });
-    document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
     const itemsPerPage = 8; // Jumlah buku per halaman
     let currentPage = 1;
     const searchNama = document.querySelector("#searchNama");
-    const kategori = document.querySelector("#kategori");
-    const books = document.querySelectorAll(".col-md-3");
+    const books = document.querySelectorAll(".col-md-3"); // Semua card buku
 
     // Tambahkan container pagination setelah row buku
-    const bookContainer = document.querySelector('.row');
+    const bookRow = document.querySelector('.row:has(.col-md-3)'); // Pilih row yang memiliki card buku
     const paginationContainer = document.createElement('div');
     paginationContainer.className = 'pagination-container d-flex justify-content-center mt-4';
-    bookContainer.parentNode.insertBefore(paginationContainer, bookContainer.nextSibling);
+    bookRow.parentNode.insertBefore(paginationContainer, bookRow.nextSibling);
 
     function showPage(page) {
         const startIndex = (page - 1) * itemsPerPage;
         const endIndex = startIndex + itemsPerPage;
         let visibleCount = 0;
 
-        books.forEach((book, index) => {
-            const searchText = searchNama.value.toLowerCase();
-            const selectedCategory = kategori.value.toLowerCase();
+        books.forEach((book) => {
             const title = book.querySelector(".card-title").textContent.toLowerCase();
-            const category = book.getAttribute("data-kategori").toLowerCase();
-
-            const nameMatch = title.includes(searchText);
-            const categoryMatch = selectedCategory === "" || category === selectedCategory;
-            const isVisible = nameMatch && categoryMatch;
+            const searchText = searchNama.value.toLowerCase();
+            const isVisible = title.includes(searchText);
 
             if (isVisible) {
                 visibleCount++;
@@ -466,12 +460,13 @@ document.addEventListener("DOMContentLoaded", function () {
         const totalPages = Math.ceil(totalItems / itemsPerPage);
         paginationContainer.innerHTML = '';
 
-        if (totalPages <= 1) {
-            return;
-        }
+        if (totalPages <= 1) return;
 
         // Tombol Previous
-        const prevButton = createPaginationButton('«', currentPage > 1);
+        const prevButton = document.createElement('button');
+        prevButton.className = `btn btn-sm mx-1 ${currentPage === 1 ? 'btn' : 'btn-outline-primary'}`;
+        prevButton.disabled = currentPage === 1;
+        prevButton.innerHTML = '&laquo;';
         prevButton.addEventListener('click', () => {
             if (currentPage > 1) {
                 currentPage--;
@@ -480,9 +475,11 @@ document.addEventListener("DOMContentLoaded", function () {
         });
         paginationContainer.appendChild(prevButton);
 
-        // Nomor halaman
+        // Tombol halaman
         for (let i = 1; i <= totalPages; i++) {
-            const pageButton = createPaginationButton(i, true, i === currentPage);
+            const pageButton = document.createElement('button');
+            pageButton.className = `btn btn-sm mx-1 ${currentPage === i ? 'btn-primary' : 'btn-outline-primary'}`;
+            pageButton.textContent = i;
             pageButton.addEventListener('click', () => {
                 currentPage = i;
                 showPage(currentPage);
@@ -491,7 +488,10 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         // Tombol Next
-        const nextButton = createPaginationButton('»', currentPage < totalPages);
+        const nextButton = document.createElement('button');
+        nextButton.className = `btn btn-sm mx-1 ${currentPage === totalPages ? 'btn' : 'btn-outline-primary'}`;
+        nextButton.disabled = currentPage === totalPages;
+        nextButton.innerHTML = '&raquo;';
         nextButton.addEventListener('click', () => {
             if (currentPage < totalPages) {
                 currentPage++;
@@ -501,22 +501,13 @@ document.addEventListener("DOMContentLoaded", function () {
         paginationContainer.appendChild(nextButton);
     }
 
-    function createPaginationButton(text, enabled, isActive = false) {
-        const button = document.createElement('button');
-        button.className = `btn btn-sm mx-1 ${isActive ? 'btn-primary' : 'btn-outline-primary'}`;
-        button.disabled = !enabled;
-        button.textContent = text;
-        return button;
-    }
-
     function filterBooks() {
-        currentPage = 1; // Reset ke halaman pertama saat melakukan filter
+        currentPage = 1; // Reset ke halaman pertama saat melakukan pencarian
         showPage(currentPage);
     }
 
-    // Event listeners
+    // Event listener untuk pencarian
     searchNama.addEventListener("input", filterBooks);
-    kategori.addEventListener("change", filterBooks);
 
     // Tampilkan halaman pertama saat halaman dimuat
     showPage(currentPage);

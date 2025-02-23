@@ -151,3 +151,5 @@ Route::delete('/petugas/penerbit/{id}', [PenerbitController::class, 'destroyPene
 Route::get('/admin/export-database', [AdminController::class, 'exportDatabase'])->name('admin.export-database');
 Route::get('/admin/backup/download/{filename}', [AdminController::class, 'downloadBackup'])
     ->name('admin.download-backup');
+Route::post('/admin/import-database', [AdminController::class, 'importDatabase'])->name('admin.import-database');
+Route::post('/admin/preview-import', [AdminController::class, 'previewImport'])->name('admin.preview-import');

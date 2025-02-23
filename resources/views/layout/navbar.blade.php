@@ -58,7 +58,7 @@
                @auth
                <div class="user-profile ms-auto">
                    <div class="user-avatar">
-                       <img src="https://static.promediateknologi.id/crop/48x391:694x1294/750x500/webp/photo/p1/981/2023/11/03/freedom-242033905.jpeg" alt="Profile Picture">
+                       <img src="https://png.pngtree.com/png-clipart/20230409/original/pngtree-admin-and-customer-service-job-vacancies-png-image_9041264.png" alt="Profile Picture">
                    </div>
                    <div class="user-info">
                        <span class="user-role">{{ Auth::user()->nama }}</span>

@@ -195,7 +195,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 document.addEventListener("DOMContentLoaded", function() {
-    const itemsPerPage = 10; // Jumlah item per halaman
+    const itemsPerPage = 5; // Jumlah item per halaman
     let currentPage = 1;
     const searchInput = document.getElementById('searchCategory');
     const tableRows = document.querySelectorAll('#categoryTable tbody tr');

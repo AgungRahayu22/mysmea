@@ -19,6 +19,14 @@ class PeminjamanBukuController extends Controller
             return redirect()->route('login')->with('error', 'Anda harus login terlebih dahulu.');
         }
 
+        $currentBorrowedBooks = PeminjamanBuku::where('user_id', Auth::id())
+            ->whereNull('tanggal_kembali')
+            ->count();
+
+        if ($currentBorrowedBooks >= 5) {
+            return redirect()->back()->with('error', 'Anda sudah meminjam 5 buku. Harap kembalikan buku terlebih dahulu sebelum meminjam buku baru.');
+        }
+
         // Mencari buku berdasarkan ID yang dikirimkan
         $book = Book::findOrFail($bookId);
 

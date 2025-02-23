@@ -69,12 +69,14 @@
                             <strong><i class="bi bi-calendar2 text-info"></i> Tahun:</strong> {{ $favorite->book->tahun }}
                         </p>
 
+                        <a href="{{ route('user.pinjam') }}" class="btn btn-outline-primary btn-sm w-100">Pinjam Buku</a>
                         <div class="mt-1">
                             <button onclick="konfirmasiHapus('{{ route('user.hapus-favorit', $favorite->book->id) }}')"
                                     class="btn btn-outline-danger btn-sm w-100">
                                 <i class=""></i> Hapus Favorit
                             </button>
                         </div>
+
                     </div>
                 </div>
             @endforeach

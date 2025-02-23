@@ -1,3 +1,5 @@
+@section('content')
+
 <style>
     .pagination-container {
     margin: 2rem 0;
@@ -37,9 +39,24 @@
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h3 class="fw-bold text-primary">Ulasan Buku</h3>
                 </div>
+                @if(session('error'))
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            {{ session('error') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+
+                    @if(session('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <i class="fas fa-check-circle me-2"></i>
+                            {{ session('success') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
                 <div class="mb-3">
-    <input type="text" id="searchUlasan" class="form-control" placeholder="Cari berdasarkan nama pengulas atau judul buku...">
-</div>
+                    <input type="text" id="searchUlasan" class="form-control" placeholder="Cari berdasarkan nama pengulas atau judul buku...">
+                </div>
 
                 <div class="table-responsive">
                     <table class="table table-striped" id="ulasanTable">
@@ -83,6 +100,7 @@
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         document.getElementById('searchUlasan').addEventListener('keyup', function () {
@@ -209,4 +227,5 @@
 });
 
 </script>
+@endsection
 

@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Modernize Free</title>
+  <title>MySmeaBooks</title>
   <link rel="stylesheet" href="../assetss/css/styles.min.css" />
   <link rel="shortcut icon" type="image/png" href="../assets/img/logomy.png" />
 </head>
@@ -20,6 +20,7 @@
         <div class="body-wrapper">
             <div class="container mt-5">
                 @include('layout.ulasanAdmin')
+                @yield('content')
             </div>
         </div>
     <!--  Main wrapper -->

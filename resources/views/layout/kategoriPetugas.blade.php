@@ -62,9 +62,9 @@
                     <table class="table table-striped" id="categoryTable">
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th>Nama Kategori</th>
-                                <th>Aksi</th>
+                                <th class="text-center">#</th>
+                                <th class="text-left" style="width: 80%;">Nama Kategori</th>
+                                <th class="text-right" style="width: 20%;">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -195,7 +195,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 document.addEventListener("DOMContentLoaded", function() {
-    const itemsPerPage = 10; // Jumlah item per halaman
+    const itemsPerPage = 5; // Jumlah item per halaman
     let currentPage = 1;
     const searchInput = document.getElementById('searchCategory');
     const tableRows = document.querySelectorAll('#categoryTable tbody tr');

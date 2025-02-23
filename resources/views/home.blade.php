@@ -27,6 +27,45 @@
 
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
+  <style>
+    .btn-login {
+    padding: 8px 16px;
+    border: 2px solid #e5e7eb;
+    border-radius: 25px;
+    text-decoration: none;
+    margin: 10px;
+    }
+    .btn-register {
+    padding: 8px 16px;
+    border: 2px solid #e5e7eb;
+    border-radius: 25px;
+    text-decoration: none;
+    margin: 10px;
+    }
+
+    .btn-login {
+    background-color: #5D87FF;
+    color: white;
+    border-color: #5D87FF;
+    }
+
+    .btn-register {
+    background-color: white;
+    color: #5D87FF;
+    border-color: #5D87FF;
+    }
+    .btn-login:hover {
+    background-color: #5D87FF;
+    color: white;
+    border-color: #5D87FF;
+    }
+
+    .btn-register:hover {
+    background-color: white;
+    color: #5D87FF;
+    border-color: #5D87FF;
+    }
+    </style>
 
   <!-- =======================================================
   * Template Name: Ninestars
@@ -51,15 +90,22 @@
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="#hero" class="active">Home</a></li>
-          <li><a href="{{ route('about') }}">About</a></li>
+          <li><a href="{{ route('home') }}" >Home</a></li>
+          <li><a href="{{ route('about') }}"class="active">About</a></li>
           <li><a href="#team">Book</a></li>
+          <a class="btn btn-login px-4 py-2 rounded-lg text-white" href="{{ route('login') }}">
+                Log In
+            </a>
+            <a class="btn btn-register px-4 py-2 rounded-lg text-blue-600" href="{{ route('register') }}">
+                Register
+            </a>
         </ul>
+
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+
       </nav>
 
-        <a class="btn-getstarted" href="{{ route('login') }}">Log In</a>
-        <a class="btn-getstarted" href="{{ route('register') }}">Register</a>
+
 
 
     </div>

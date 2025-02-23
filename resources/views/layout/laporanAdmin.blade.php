@@ -38,7 +38,7 @@
                         @endforeach
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-danger" onclick="exportPDF()">
+                        <button class="btn btn-danger" onclick="exportPDFTahun()">
                             <i class="fas fa-file-pdf"></i> Export PDF
                         </button>
                     </div>
@@ -75,7 +75,7 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-danger" onclick="exportPDF()">
+                        <button class="btn btn-danger" onclick="exportPDFKategori()">
                             <i class="fas fa-file-pdf"></i> Export PDF
                         </button>
                     </div>
@@ -110,7 +110,7 @@
                         @endforeach
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-danger" onclick="exportPDF()">
+                        <button class="btn btn-danger" onclick="exportPDFBukuPopuler()">
                             <i class="fas fa-file-pdf"></i> Export PDF
                         </button>
                     </div>
@@ -145,7 +145,7 @@
                         @endforeach
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-danger" onclick="exportPDF()">
+                        <button class="btn btn-danger" onclick="exportPDFUserAktif()">
                             <i class="fas fa-file-pdf"></i> Export PDF
                         </button>
                     </div>
@@ -162,76 +162,101 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.19/jspdf.plugin.autotable.min.js"></script>
 
 <script>
-function exportPDF() {
+// Export PDF untuk Buku Per Tahun
+function exportPDFTahun() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
     // Judul PDF
     doc.setFontSize(18);
-    doc.text('Laporan Buku', 14, 20);
+    doc.text('Laporan Buku Per Tahun', 14, 20);
     doc.setFontSize(12);
 
-    // Daftar Buku Per Tahun
-    doc.text('Daftar Buku Per Tahun Terbit:', 14, 30);
     const bukuPerTahunData = [];
     @foreach($bukuPerTahun as $tahun)
-        bukuPerTahunData.push(['Tahun: {{ $tahun->tahun }}', 'Jumlah Buku: {{ $tahun->jumlah }}']);
+        bukuPerTahunData.push(['{{ $tahun->tahun }}', '{{ $tahun->jumlah }}']);
     @endforeach
 
     doc.autoTable({
-        startY: 40,
+        startY: 30,
         head: [['Tahun', 'Jumlah Buku']],
         body: bukuPerTahunData,
-        theme: 'striped', // Menambahkan striping pada tabel
+        theme: 'striped'
     });
 
-    // Daftar Buku Per Kategori
-    doc.addPage();
-    doc.text('Daftar Buku Per Kategori:', 14, 20);
-    const bukuPerKatagoriData = [];
+    doc.save('laporan buku pertahun.pdf');
+}
+
+// Export PDF untuk Buku Per Kategori
+function exportPDFKategori() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    doc.setFontSize(18);
+    doc.text('Laporan Buku Per Kategori', 14, 20);
+    doc.setFontSize(12);
+
+    const bukuPerKategoriData = [];
     @foreach($bukuPerKategori as $kategori)
-        bukuPerKatagoriData.push(['{{ $kategori->kategori->nama_kategori ?? "-" }}', '{{ $kategori->jumlah }}']);
+        bukuPerKategoriData.push(['{{ $kategori->kategori->nama_kategori ?? "-" }}', '{{ $kategori->jumlah }}']);
     @endforeach
 
     doc.autoTable({
         startY: 30,
         head: [['Kategori', 'Jumlah Buku']],
-        body: bukuPerKatagoriData,
-        theme: 'striped',
+        body: bukuPerKategoriData,
+        theme: 'striped'
     });
 
-    // Daftar Buku yang Paling Banyak Dipinjam
-    doc.addPage();
-    doc.text('Daftar Buku yang Paling Banyak Dipinjam:', 14, 20);
+    doc.save('laporan buku perkategori.pdf');
+}
+
+// Export PDF untuk Buku Paling Banyak Dipinjam
+function exportPDFBukuPopuler() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    doc.setFontSize(18);
+    doc.text('Laporan Buku Paling Banyak Dipinjam', 14, 20);
+    doc.setFontSize(12);
+
     const bukuDipinjamData = [];
     @foreach($bukuPalingDipinjam as $buku)
-        bukuDipinjamData.push(['Judul: {{ $buku->judul }}', 'Jumlah Peminjaman: {{ $buku->peminjaman_bukus_count }}']);
+        bukuDipinjamData.push(['{{ $buku->judul }}', '{{ $buku->peminjaman_bukus_count }}']);
     @endforeach
 
     doc.autoTable({
         startY: 30,
         head: [['Judul Buku', 'Jumlah Peminjaman']],
         body: bukuDipinjamData,
-        theme: 'striped',
+        theme: 'striped'
     });
 
-    // Daftar User yang Paling Banyak Meminjam Buku
-    doc.addPage();
-    doc.text('Daftar User yang Paling Banyak Meminjam Buku:', 14, 20);
+    doc.save('laporan buku yang paling banyak dipinjam.pdf');
+}
+
+// Export PDF untuk User Paling Banyak Meminjam
+function exportPDFUserAktif() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    doc.setFontSize(18);
+    doc.text('Laporan User Paling Aktif Meminjam', 14, 20);
+    doc.setFontSize(12);
+
     const userDipinjamData = [];
     @foreach($userPalingBanyakMeminjam as $user)
-        userDipinjamData.push(['Nama: {{ $user->nama }}', 'Jumlah Peminjaman: {{ $user->jumlah_peminjaman }}']);
+        userDipinjamData.push(['{{ $user->nama }}', '{{ $user->jumlah_peminjaman }}']);
     @endforeach
 
     doc.autoTable({
         startY: 30,
         head: [['Nama User', 'Jumlah Peminjaman']],
         body: userDipinjamData,
-        theme: 'striped',
+        theme: 'striped'
     });
 
-    // Menyimpan PDF
-    doc.save('laporan-buku.pdf');
+    doc.save('laporan user peminjam yang paling banyak.pdf');
 }
 </script>
 

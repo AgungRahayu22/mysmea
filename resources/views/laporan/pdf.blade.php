@@ -1,27 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
+    <meta charset="UTF-8">
     <title>Laporan Buku</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #000;
+            padding-bottom: 10px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        .logo img {
+            max-height: 100px;
+            margin-right: 20px;
+        }
+        .report-title {
+            text-align: center;
+            margin-bottom: 20px;
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
+            margin-bottom: 20px;
         }
         th, td {
+            border: 1px solid #ddd;
             padding: 8px 12px;
             text-align: left;
-            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
         }
     </style>
 </head>
 <body>
-    <h1>Laporan Buku</h1>
+    <div class="header">
+        <div class="logo">
+            <img src="../assets/img/logomy.png" alt="">
+            <h1>LAPORAN PERPUSTAKAAN</h1>
+        </div>
+        <div class="logo">
+            <img src="../assets/img/logomy.png" alt="Logo Sekolah">
+        </div>
+    </div>
 
-    <h2>Buku Per Tahun Terbit</h2>
+    <div class="report-title">
+        <h2>Laporan Data Buku</h2>
+        <p>Periode: Semester Genap 2024/2025</p>
+    </div>
+
+    <h3>Buku Per Tahun Terbit</h3>
     <table>
         <thead>
             <tr>
@@ -39,7 +80,8 @@
         </tbody>
     </table>
 
-    <h2>Buku Per Kategori</h2>
+
+    <h3>Buku Per Kategori</h3>
     <table>
         <thead>
             <tr>
@@ -57,7 +99,8 @@
         </tbody>
     </table>
 
-    <h2>Buku Paling Banyak Dipinjam</h2>
+
+    <h3>Buku Paling Banyak Dipinjam</h3>
     <table>
         <thead>
             <tr>
@@ -75,7 +118,8 @@
         </tbody>
     </table>
 
-    <h2>User Paling Banyak Meminjam Buku</h2>
+
+    <h3>User Paling Banyak Meminjam Buku</h3>
     <table>
         <thead>
             <tr>
@@ -92,5 +136,16 @@
             @endforeach
         </tbody>
     </table>
+
+    <div style="display: flex; justify-content: space-between; margin-top: 40px;">
+        <div style="text-align: center;">
+            <p>Mengetahui,<br>Kepala Perpustakaan</p>
+            <p style="margin-top: 80px;">________________</p>
+        </div>
+        <div style="text-align: center;">
+            <p>Penanggung Jawab,<br>Staff Perpustakaan</p>
+            <p style="margin-top: 80px;">________________</p>
+        </div>
+    </div>
 </body>
 </html>
